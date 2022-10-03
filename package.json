@@ -45,6 +45,7 @@
     "react-instantsearch-dom": "^6.30.3",
     "react-instantsearch-hooks-web": "^6.30.3",
     "react-phone-number-input": "^3.1.46",
+    "react-pose": "^4.0.10",
     "react-query": "^3.34.16",
     "react-range": "^1.8.13",
     "react-select": "^5.2.2",

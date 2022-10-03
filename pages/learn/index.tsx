@@ -1,8 +1,11 @@
+import Link from "next/link";
 import React from "react";
-import { Plus } from "react-feather";
+import { ArrowRight, Plus } from "react-feather";
 import BreadCamps from "../../components/breadCamps";
 import Button from "../../components/Button";
 import LearnLayout from "../../components/LearnLayout";
+import LessonCard from "../../components/LessonCard";
+import TestCard from "../../components/TestCard";
 
 export default function Index() {
   var hours = new Date().getHours();
@@ -68,7 +71,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="mt-5 bg-[#7933ff] px-6 rounded-md py-6 flex items-center justify-between">
+          <div className="mt-7 bg-[#7933ff] px-6 rounded-md py-6 flex items-center justify-between">
             <div>
               <h4 className="text-white mb-3">
                 Gura ifatabuguzi ryawe kugurango ubashe kwiga.
@@ -79,20 +82,70 @@ export default function Index() {
               </p>
             </div>
             <div>
-              <Button styles={{ color: "black", background: "white" }}>
-                Gura Ifatabuguzi
-              </Button>
+              <Link href="/learn/plans">
+                <Button styles={{ color: "black", background: "white" }}>
+                  Gura Ifatabuguzi
+                </Button>
+              </Link>
             </div>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-7">
             <div className="my-2">
-              <h4 className="border-l-2 px-4 border-primary">
-                Amasuzuma akuzwe
-              </h4>
-              <div>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((e) => {
-                  return <div></div>;
+              <div className="flex items-center justify-between">
+                <h4 className="">Amasuzuma akuzwe</h4>
+                <a
+                  href=""
+                  className="text-sm font-bold text-primary flex items-center"
+                >
+                  <span> Ayandi</span>
+                  <ArrowRight className="ml-2" size={15} />
+                </a>
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-3">
+                {[1, 2, 3, 4, 5, 6].map((e) => {
+                  return (
+                    <TestCard
+                      item={{
+                        name: "Isuzuma #K005: rigizwe n'ibibazo byabajijwe i Rusizi na Polisi",
+                        lesson: "police",
+                        counts: {
+                          questions: 10,
+                        },
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <div className="my-2">
+              <div className="flex items-center justify-between">
+                <h4 className="">Amasomo akuzwe</h4>
+                <a
+                  href=""
+                  className="text-sm font-bold text-primary flex items-center"
+                >
+                  <span> Ayandi</span>
+                  <ArrowRight className="ml-2" size={15} />
+                </a>
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {[1, 2, 3, 4, 5, 6].map((e) => {
+                  return (
+                    <LessonCard
+                      item={{
+                        name: "isomo RYUZUYE ryo kwitegura ikizamini cy'uruhushya rw'agateganyo",
+                        lesson: "police",
+                        desc: "Gusobanukirwa amategeko y'umuhanda hagamijwe gutsinda ikizamini",
+                        counts: {
+                          questions: 10,
+                        },
+                      }}
+                    />
+                  );
                 })}
               </div>
             </div>

@@ -78,8 +78,8 @@ export default function LearnLayout({ children }) {
             </div>
           </div>
         </div>
-        <div className="border-r min-h-screen border-gray-200 pl-[260px] pb-8 pt-3 w-full bg-white">
-          <div className="px-3">{children}</div>
+        <div className="border-r min-h-screen border-gray-200 pl-[265px] pb-8 pt-3 w-full bg-white">
+          <div className="pr-4">{children}</div>
         </div>
       </div>
     </div>

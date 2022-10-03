@@ -266,20 +266,21 @@ function Actions({
                 router.push("/");
                 setcallapsed(false);
               }}
-              className="mr-3"
               normal
               Icon={LogOut}
             >
               Gusohoka
             </Button>
-            <Button
-              onClick={() => {
-                router.push("/learn");
-              }}
-              className={`${callapsed && "sm:w-full sm:mb-2"}`}
-            >
-              Aho bigira
-            </Button>
+            {!router.asPath.split("/").includes("learn") && (
+              <Button
+                onClick={() => {
+                  router.push("/learn");
+                }}
+                className={`${callapsed && "sm:w-full sm:mb-2"}  ml-2`}
+              >
+                Aho bigira
+              </Button>
+            )}
           </div>
         </Fragment>
       )}

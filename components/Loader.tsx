@@ -11,7 +11,7 @@ export default function Loader({ large, small, primary, xsmall }: any) {
           : "w-7 h-7 "
       } relative ${
         primary
-          ? "border-primary border-l-red-200"
+          ? "border-primary border-l-green-200"
           : "border-gray-600 border-l-gray-300"
       }`}
       style={{
