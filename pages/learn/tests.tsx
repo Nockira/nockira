@@ -1,9 +1,14 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { Plus } from "react-feather";
+import Button from "../../components/Button";
 import LearnLayout from "../../components/LearnLayout";
 import NoContent from "../../components/NoContent";
 import TestCard from "../../components/TestCard";
 
 export default function Tests() {
+  const router = useRouter();
+
   const [selected, setselected] = useState(0);
   return (
     <LearnLayout>
@@ -15,6 +20,7 @@ export default function Tests() {
                 onClick={() => {
                   setselected(index);
                 }}
+                key={index}
                 className={`${
                   index === selected
                     ? "border-b-[2.5px] font-bold text-primary border-primary"
@@ -39,6 +45,16 @@ export default function Tests() {
           </div>
         )}
       </div>
+      <div className="flex py-4 justify-center">
+        <Button
+          onClick={() => {
+            router.push("/learn/tests/new");
+          }}
+          Icon={Plus}
+        >
+          Shyiramo isuzumabumenyi rishya
+        </Button>
+      </div>
     </LearnLayout>
   );
 }
@@ -47,10 +63,11 @@ function All() {
   return (
     <div>
       {" "}
-      <div className="mt-1 grid grid-cols-2 gap-3">
-        {[1, 2, 3, 4, 5, 6].map((e) => {
+      <div className="mt-1 sm:grid-cols-1 grid grid-cols-2 gap-3">
+        {[1, 2, 3, 4, 5, 6].map((e, index) => {
           return (
             <TestCard
+              key={index}
               item={{
                 name: "Isuzuma #K005: rigizwe n'ibibazo byabajijwe i Rusizi na Polisi",
                 lesson: "police",

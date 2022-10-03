@@ -19,7 +19,7 @@ export default function Plans() {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-1 gap-3">
         {[
           {
             price: 2000,
@@ -52,9 +52,9 @@ export default function Plans() {
               "Amasomo n'amasuzumabumenyi yose",
             ],
           },
-        ].map((e) => {
+        ].map((e, index) => {
           return (
-            <div>
+            <div key={index}>
               <div className=" mx-auto bg-white border border-gray-200 border-t-[3px] rounded border-t-primary  text-center p-4">
                 <div className="overflow-hidden">
                   <div className="text-base font-bold capitalize mb-8 text-gray-800 ">
@@ -62,9 +62,12 @@ export default function Plans() {
                   </div>
                   <div className="leading-loose flex flex-col justify-start items-start text-sm font-light text-gray-700 mb-5">
                     {/* <div className="font-bold">5000 products</div> */}
-                    {e.features.map((e) => {
+                    {e.features.map((e, index) => {
                       return (
-                        <div className="font-semibold leading-7 capitalize flex items-center text-left text-gray-500">
+                        <div
+                          key={index}
+                          className="font-semibold leading-7 capitalize flex items-center text-left text-gray-500"
+                        >
                           <div>
                             <Check
                               size={15}
@@ -166,9 +169,10 @@ function Pay({ plan, onClose }) {
             {[
               { name: "Mtn momo", desc: "Ishura na mtn" },
               { name: "Airtel money", desc: "ishura na money" },
-            ].map((e) => {
+            ].map((e, index) => {
               return (
                 <div
+                  key={index}
                   onClick={() => {
                     setpaymentMethod(e.name);
                   }}
@@ -271,8 +275,8 @@ function Pending() {
       </div>
       <h4 className=" font-bold text-base">Payment pending</h4>
       <p className="text-gray-500 text-center mx-5 leading-8 mt-3 font-semibold text-sm">
-        Reba kuri telefoni yawe, maze ushyiremo umubare w'ibanga wohereze. Niba
-        ntacyo ubona muri telefoni yawe, kanda *182*7*1# kuri Phone.
+        Reba kuri telefoni yawe, maze ushyiremo umubare w&apos;ibanga wohereze.
+        Niba ntacyo ubona muri telefoni yawe, kanda *182*7*1# kuri Phone.
       </p>
       <p className="text-gray-400 text-center mx-5 leading-6 mt-3 font-bold text-base">
         {timer}

@@ -8,9 +8,7 @@ import SubmitButton from "../../components/forms/SubmitButton";
 import Checkbox from "../../components/Checkbox";
 import { useRouter } from "next/router";
 import { AuthServices } from "../../services/auth.service";
-import GoogleButton from "../../components/GoogleButton";
 import Link from "next/link";
-import AuthLayout from "../../components/AuthLayout";
 import { NextSeo } from "next-seo";
 import { useToast } from "../../context/toastContext";
 import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
@@ -76,7 +74,7 @@ export default function Login() {
       {" "}
       <NextSeo title="Login" />
       <div
-        className={` max-w-[430px] mt-20 border-opacity-70 sm:pt-0 rounded-md  mx-auto`}
+        className={` max-w-[430px] px-3 mt-20 border-opacity-70 sm:pt-0 rounded-md  mx-auto`}
       >
         <AppForm
           validationSchema={loginSchema}

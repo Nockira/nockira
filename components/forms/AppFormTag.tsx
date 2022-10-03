@@ -10,7 +10,7 @@ const AppFormTags: FC<any> = ({ name, label, Action, ...otherProps }) => {
 
   return (
     <>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <div className={` label  font-semibold capitalize mb-1 `}>
           <span className="text-gray-500"> {label}</span>
         </div>

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import {
   Award,
@@ -5,14 +6,16 @@ import {
   Calendar,
   CheckCircle,
   Clock,
+  Edit,
   File,
   Globe,
   Mic,
   Smartphone,
+  Trash,
   Users,
 } from "react-feather";
-import Button from "../../../components/Button";
-import LearnLayout from "../../../components/LearnLayout";
+import Button from "../../../../components/Button";
+import LearnLayout from "../../../../components/LearnLayout";
 
 export default function Lesson() {
   const lesson: any = {
@@ -40,6 +43,10 @@ export default function Lesson() {
     ],
     objectives: [],
   };
+
+  const handleDelete = () => {};
+
+  const router = useRouter();
   return (
     <LearnLayout>
       <div className="max-w-7xl px-3 mx-auto  md:my-5 my-2">
@@ -172,12 +179,39 @@ export default function Lesson() {
                   })}
                 </div>
                 <div className="text-center mb-4 flex-col items-center">
-                  <Button>Tangira Isomo</Button>
+                  <Button
+                    onClick={() => {
+                      router.push(router.asPath + "/learn");
+                    }}
+                  >
+                    Tangira Isomo
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex py-3 gap-4 px-3">
+        <Button
+          onClick={() => {
+            handleDelete();
+          }}
+          className="flex-1"
+          Icon={Trash}
+          danger
+        >
+          Siba isomo
+        </Button>
+        <Button
+          onClick={() => {
+            router.push(router.asPath + "/update");
+          }}
+          className="flex-1 bg-[#7933ff] "
+          Icon={Edit}
+        >
+          hindura
+        </Button>
       </div>
     </LearnLayout>
   );

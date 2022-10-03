@@ -131,8 +131,8 @@ export default function Account() {
             >
               <div className="flex justify-between items-center md:mt-4 mb-6">
                 <div>
-                  <h4 className="font-bold mb-2 text-sm text-gray-800">
-                    Imwirondoro yawe
+                  <h4 className="font-bold mb-2 text-base text-gray-800">
+                    Imyirondoro yawe
                   </h4>
                   <p className="text-[13px] sm:hidden font-semibold text-gray-500 mt-1">
                     Ushobora kuba wahindura ifoto yawe hamwe nimyirondoro yawe

@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import AppForm from "../../components/forms/AppForm";
-import GoogleButton from "../../components/GoogleButton";
-import SocialIcon from "../../components/SocialIcon";
-import AppFormField from "../../components/forms/AppFormField";
 import Checkbox from "../../components/Checkbox";
 import SubmitButton from "../../components/forms/SubmitButton";
-import { useRouter } from "next/router";
-import { AuthServices } from "../../services/auth.service";
 import Link from "next/link";
-import AuthLayout from "../../components/AuthLayout";
 import * as Yup from "yup";
 import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
 
@@ -21,7 +15,7 @@ export default function SignUp() {
     { resetForm, setSubmitting }: any
   ) => {};
   return (
-    <div className={` max-w-[430px] mt-20 sm:pt-2 bg-white mx-auto`}>
+    <div className={` max-w-[430px] mt-20 px-3 sm:pt-2 bg-white mx-auto`}>
       <AppForm
         validationSchema={registerSchema}
         onSubmit={handleSubmit}

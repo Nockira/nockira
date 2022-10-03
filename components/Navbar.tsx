@@ -15,8 +15,6 @@ import {
 import { useAuth } from "../context/authContext";
 import { Avatar } from "./Avatar";
 import Button from "./Button";
-import Logo from "./logo";
-import ProfileDropdown from "./ProfilleDropdown";
 
 export default function Navbar() {
   const router = useRouter();
@@ -102,7 +100,7 @@ export default function Navbar() {
                 <a
                   className="cursor-pointer"
                   onClick={() => {
-                    router.push("/account");
+                    router.push("/learn/account");
                   }}
                 >
                   <Avatar
@@ -146,52 +144,84 @@ export default function Navbar() {
                 callapsed={callapsed}
               />
             </div>
-            {callapsed && (
-              <div className={`hidden sm:block`}>
-                <ul className="flex border-t flex-col justify-start items-start ml-0">
-                  {[
-                    { title: "home", link: "/" },
-                    { title: "events", link: "/events" },
-                    { title: "magazine", link: "/articles" },
-                    { title: "about us", link: "/about" },
-                  ].map((e, index) => {
-                    return (
-                      <Navlink key={index} setcallapsed={setcallapsed} e={e} />
-                    );
-                  })}
-                </ul>
-                {user && (
-                  <ul
-                    className={`${
-                      !user ? "sm:hidden" : "sm:flex"
-                    }  flex-col justify-start items-start ml-0`}
-                  >
-                    {[
-                      { title: "my profile", link: `/profile/${user?.id}` },
-                      { title: "account settings", link: "/account" },
-                    ].map((e, index) => {
-                      return (
-                        <Navlink
-                          key={index}
-                          setcallapsed={setcallapsed}
-                          e={e}
-                        />
-                      );
-                    })}
-                  </ul>
-                )}
-                <Actions
-                  setcallapsed={setcallapsed}
-                  user={user}
-                  loading={loading}
-                  setshowProfileDropdown={setshowProfileDropdown}
-                  showProfileDropdown={showProfileDropdown}
-                  clickRef={clickRef}
-                  callapsed={callapsed}
-                />
-              </div>
-            )}
           </div>
+          {callapsed && (
+            <div className={`hidden sm:block`}>
+              <ul
+                className={`${
+                  user && "sm:hidden"
+                } flex border-t flex-col justify-start items-start ml-0`}
+              >
+                {[
+                  { title: "ahabanza", link: "/" },
+                  { title: "abo turibo", link: "/about" },
+                  { title: "ubufasha", link: "/#" },
+                  { title: "twandikire", link: "/contact" },
+                ].map((e, index) => {
+                  return (
+                    <Navlink key={index} setcallapsed={setcallapsed} e={e} />
+                  );
+                })}
+              </ul>
+              <ul
+                className={`${
+                  user && "sm:flex"
+                } hidden border-t flex-col justify-start items-start ml-0`}
+              >
+                {[
+                  {
+                    title: "Ahabanza",
+                    link: "/learn",
+                  },
+                  {
+                    title: "Amasomo",
+                    link: "/learn/lessons",
+                  },
+                  {
+                    title: "amsuzuma bumenyi",
+                    link: "/learn/tests",
+                  },
+                  {
+                    title: "ifata buguzi",
+                    link: "/learn/billing",
+                    icon: Briefcase,
+                  },
+                  {
+                    title: "Konte Yange",
+                    link: "/learn/account",
+                    icon: User,
+                  },
+                  {
+                    title: "abafatabuguzi",
+                    link: "/learn/subscribers",
+                  },
+                  {
+                    title: "abantu",
+                    link: "/learn/users",
+                  },
+                  {
+                    title: "gusohoka",
+                    link: "/learn/logout",
+                    icon: LogOut,
+                  },
+                ].map((e, index) => {
+                  return (
+                    <Navlink key={index} setcallapsed={setcallapsed} e={e} />
+                  );
+                })}
+              </ul>
+
+              <Actions
+                setcallapsed={setcallapsed}
+                user={user}
+                loading={loading}
+                setshowProfileDropdown={setshowProfileDropdown}
+                showProfileDropdown={showProfileDropdown}
+                clickRef={clickRef}
+                callapsed={callapsed}
+              />
+            </div>
+          )}
         </div>
       </div>
       {callapsed && (
@@ -260,23 +290,26 @@ function Actions({
               callapsed && "sm:border-t sm:border-gray-200 sm:flex sm:flex-col"
             } text-gray-800 items-center sm:py-3`}
           >
-            <Button
-              onClick={() => {
-                logout();
-                router.push("/");
-                setcallapsed(false);
-              }}
-              normal
-              Icon={LogOut}
-            >
-              Gusohoka
-            </Button>
+            {user && (
+              <Button
+                onClick={() => {
+                  logout();
+                  router.push("/");
+                  setcallapsed(false);
+                }}
+                normal
+                className="sm:flex hidden sm:mb-2"
+                Icon={LogOut}
+              >
+                Gusohoka
+              </Button>
+            )}
             {!router.asPath.split("/").includes("learn") && (
               <Button
                 onClick={() => {
                   router.push("/learn");
                 }}
-                className={`${callapsed && "sm:w-full sm:mb-2"}  ml-2`}
+                className={`${callapsed && "sm:w-full sm:mb-2"}  ml-2 sm:ml-0`}
               >
                 Aho bigira
               </Button>

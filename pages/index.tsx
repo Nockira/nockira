@@ -218,14 +218,17 @@ export default function Home() {
                 );
               },
             },
-          ].map((i) => {
+          ].map((i, index) => {
             return (
-              <div className="flex sm:px-4 last-of-type:border-b-0 sm:py-3 py-5 border-b border-gray-100">
-                <div className="mx-7 sm:hidden">
+              <div
+                key={index}
+                className="flex sm:flex-col sm:my-4 sm:justify-center sm:items-center sm:text-center sm:px-4 last-of-type:border-b-0 sm:py-3 py-5 border-b border-gray-100"
+              >
+                <div className="mx-7">
                   <i.image />
                 </div>
                 <div className="flex-1 sm:mt-0 mt-2">
-                  <h4 className="text-[15px] sm:text-sm">{i.title}</h4>
+                  <h4 className="text-[15px] sm:py-2 sm:text-sm">{i.title}</h4>
                   <p className="text-sm max-w-xl leading-6 font-semibold text-gray-500 mt-2">
                     {i.description}
                   </p>
@@ -235,9 +238,9 @@ export default function Home() {
           })}
         </div>
         <div className="card-footer justify-start">
-          <div className="w-full px-4 py-2">
+          <div className="w-full px-4 sm:px-0 py-2">
             <h4 className="text-[15px] mb-2">Ufite Ibibazo</h4>
-            <p className="text-sm sm:hidden font-semibold text-gray-500 mt-2">
+            <p className="text-sm leading-8 font-semibold text-gray-500 mt-2">
               kanda
               <Link href="/help">
                 <a href="#" className="text-primary ml-1">

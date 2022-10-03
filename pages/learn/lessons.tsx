@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import Button from "../../components/Button";
 import LearnLayout from "../../components/LearnLayout";
 import LessonCard from "../../components/LessonCard";
 import NoContent from "../../components/NoContent";
+import { Plus } from "react-feather";
+import { useRouter } from "next/router";
 
 export default function Lessons() {
   const [selected, setselected] = useState(0);
+
+  const router = useRouter();
   return (
     <LearnLayout>
       <div className="border-b">
@@ -12,6 +17,7 @@ export default function Lessons() {
           {["amasomo yose", "ayo niyandikishijemo"].map((e, index) => {
             return (
               <a
+                key={index}
                 onClick={() => {
                   setselected(index);
                 }}
@@ -39,6 +45,16 @@ export default function Lessons() {
           </div>
         )}
       </div>
+      <div className="flex py-4 justify-center">
+        <Button
+          onClick={() => {
+            router.push("/learn/lessons/new");
+          }}
+          Icon={Plus}
+        >
+          Shyiramo isomo rishya
+        </Button>
+      </div>
     </LearnLayout>
   );
 }
@@ -47,10 +63,11 @@ function All() {
   return (
     <div>
       {" "}
-      <div className="mt-1 grid grid-cols-2 gap-3">
-        {[1, 2, 3, 4, 5, 6].map((e) => {
+      <div className="mt-1 grid sm:grid-cols-1 grid-cols-2 gap-3">
+        {[1, 2, 3, 4, 5, 6].map((e, index) => {
           return (
             <LessonCard
+              key={index}
               item={{
                 name: "isomo RYUZUYE ryo kwitegura ikizamini cy'uruhushya rw'agateganyo",
                 lesson: "police",

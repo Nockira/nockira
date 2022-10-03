@@ -3,16 +3,19 @@ import {
   CheckCircle,
   ChevronLeft,
   Clock,
+  Edit,
   File,
   Globe,
   Mic,
   Smartphone,
+  Trash,
 } from "react-feather";
 import Button from "../../../components/Button";
 import LearnLayout from "../../../components/LearnLayout";
 import Modal from "../../../components/Modal";
 import posed from "react-pose";
 import Radio from "../../../components/Radio";
+import { useRouter } from "next/router";
 
 export default function Test() {
   const lesson: any = {
@@ -34,6 +37,9 @@ export default function Test() {
     objectives: [],
   };
 
+  const handleDelete = () => {};
+
+  const router = useRouter();
   const [showTestModal, setshowTestModal] = useState(false);
   return (
     <div>
@@ -54,7 +60,7 @@ export default function Test() {
                 <div className="mt-7">
                   <div className="my-3">
                     <h4 className="text-[14.5px] border-l-2 border-l-primary px-3  capitalize">
-                      Amategeko y'iri suzuma
+                      Amategeko y&apos;iri suzuma
                     </h4>
                   </div>
                   <div className="grid grid-cols-2 gap-0">
@@ -120,6 +126,27 @@ export default function Test() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="flex py-3 gap-4 px-3">
+          <Button
+            onClick={() => {
+              handleDelete();
+            }}
+            className="flex-1"
+            Icon={Trash}
+            danger
+          >
+            Siba isomo
+          </Button>
+          <Button
+            onClick={() => {
+              router.push(router.asPath + "/update");
+            }}
+            className="flex-1 bg-[#7933ff] "
+            Icon={Edit}
+          >
+            hindura
+          </Button>
         </div>
       </LearnLayout>
       {showTestModal && (

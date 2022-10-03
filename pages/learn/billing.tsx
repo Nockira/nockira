@@ -24,7 +24,7 @@ export default function Billing() {
   return (
     <LearnLayout>
       {" "}
-      <div className="max-w-5xl mx-auto lg:px-3 my-2">
+      <div className="max-w-5xl mx-auto my-2">
         <div className="card max-w-4xl">
           <div className="card-head">
             <div className="flex justify-between items-center py-1">
@@ -74,7 +74,7 @@ export default function Billing() {
                   </span>
                 </div>
                 <p className="text-gray-600 font-semibold text-sm capitalize">
-                  amakuru y' ifatabuguzi ryawe.
+                  amakuru y&apos; ifatabuguzi ryawe.
                 </p>
               </div>
               <div className="mt-5">
@@ -100,7 +100,7 @@ export default function Billing() {
             <div className="my-5">
               <div className="my-3">
                 <h4 className="text-[14px] capitalize text-gray-700">
-                  Inyungu y' ifatabuguzi.
+                  Inyungu y&apos; ifatabuguzi.
                 </h4>
               </div>
               <div className="grid sm:grid-cols-1 grid-cols-2">
@@ -146,29 +146,31 @@ export default function Billing() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[{ status: "paid" }, { status: "failed" }].map((e) => {
-                    return (
-                      <tr>
-                        <td>Apr 4,2020</td>
-                        <td>$3.30</td>
-                        <td>
-                          <span
-                            className={`${
-                              e.status === "paid"
-                                ? "text-primary"
-                                : e.status === "failed"
-                                ? "text-red-500"
-                                : ""
-                            }`}
-                          >
-                            {" "}
-                            {e.status}
-                          </span>
-                        </td>
-                        <td className="sm:hidden">cards</td>
-                      </tr>
-                    );
-                  })}
+                  {[{ status: "paid" }, { status: "failed" }].map(
+                    (e, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>Apr 4,2020</td>
+                          <td>$3.30</td>
+                          <td>
+                            <span
+                              className={`${
+                                e.status === "paid"
+                                  ? "text-primary"
+                                  : e.status === "failed"
+                                  ? "text-red-500"
+                                  : ""
+                              }`}
+                            >
+                              {" "}
+                              {e.status}
+                            </span>
+                          </td>
+                          <td className="sm:hidden">cards</td>
+                        </tr>
+                      );
+                    }
+                  )}
                 </tbody>
               </table>
             </div>

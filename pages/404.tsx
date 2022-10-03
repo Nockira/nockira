@@ -9,7 +9,7 @@ export default function Page404() {
       <NextSeo title={"404 - Page not found"} />
       <div
         style={{
-          minHeight: "calc(60vh - 66px)",
+          minHeight: "calc(80vh - 66px)",
           maxWidth: "480px",
           textAlign: "center",
         }}

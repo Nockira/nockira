@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { Home, LogOut, User, Edit, Briefcase, Book } from "react-feather";
+import {
+  Home,
+  LogOut,
+  User,
+  Edit,
+  Briefcase,
+  Book,
+  DollarSign,
+  Users,
+} from "react-feather";
 import { Avatar } from "./Avatar";
 
 export default function LearnLayout({ children }) {
@@ -9,7 +18,7 @@ export default function LearnLayout({ children }) {
   return (
     <div className="my-0 px-3 max-w-5xl mx-auto">
       <div className=" flex">
-        <div className="w-[250px]  h-[100vh] top-0 bg-white fixed  bg-blak md:hidden">
+        <div className="w-[250px] h-[100vh] top-0 bg-white fixed  bg-blak md:hidden">
           <div className="border-l pt-[63px] h-full flex flex-col justify-between border-r border-gray-200">
             <ul className="">
               {[
@@ -24,7 +33,7 @@ export default function LearnLayout({ children }) {
                   icon: Book,
                 },
                 {
-                  title: "isuzuma bumenyi",
+                  title: "amsuzuma bumenyi",
                   link: "/tests",
                   icon: Edit,
                 },
@@ -37,6 +46,16 @@ export default function LearnLayout({ children }) {
                   title: "Konte Yange",
                   link: "/account",
                   icon: User,
+                },
+                {
+                  title: "abafatabuguzi",
+                  link: "/subscribers",
+                  icon: DollarSign,
+                },
+                {
+                  title: "abantu",
+                  link: "/users",
+                  icon: Users,
                 },
                 {
                   title: "gusohoka",
@@ -78,8 +97,8 @@ export default function LearnLayout({ children }) {
             </div>
           </div>
         </div>
-        <div className="border-r min-h-screen border-gray-200 pl-[265px] pb-8 pt-3 w-full bg-white">
-          <div className="pr-4">{children}</div>
+        <div className="border-r sm:border-r-0 md:pl-0 md:pr-0 min-h-screen border-gray-200 pl-[265px] pb-8 pt-3 w-full bg-white">
+          <div className="pr-4 sm:pr-0">{children}</div>
         </div>
       </div>
     </div>

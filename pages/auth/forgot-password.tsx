@@ -1,13 +1,10 @@
 import React from "react";
 import Checkbox from "../../components/Checkbox";
 import AppForm from "../../components/forms/AppForm";
-import AppFormField from "../../components/forms/AppFormField";
-import AppFormStatus from "../../components/forms/AppFormStatus";
 import SubmitButton from "../../components/forms/SubmitButton";
 import * as Yup from "yup";
 import { AuthServices } from "../../services/auth.service";
 import Link from "next/link";
-import AuthLayout from "../../components/AuthLayout";
 import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
 
 export default function ForgotPassword() {
@@ -37,7 +34,7 @@ export default function ForgotPassword() {
       });
   };
   return (
-    <div className={` max-w-[430px] mt-20 sm:pt-0 bg-white mx-auto`}>
+    <div className={` max-w-[430px] mt-20 px-3 sm:pt-0 bg-white mx-auto`}>
       <AppForm
         initialValues={{
           email: "",
