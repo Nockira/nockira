@@ -1,0 +1,218 @@
+import { collection, getDocs, query } from "firebase/firestore";
+import { useRouter } from "next/router";
+import React, { useState, Fragment } from "react";
+import { Plus } from "react-feather";
+import { useQuery } from "react-query";
+import Button from "../../components/Button";
+import LearnLayout from "../../components/LearnLayout";
+import Loader from "../../components/Loader";
+import NoContent from "../../components/NoContent";
+import TestCard from "../../components/TestCard";
+import { firestore } from "../../config/firebase";
+import { useAuth } from "../../context/authContext";
+
+export default function Tests() {
+  const [selected, setselected] = useState(0);
+  return (
+    <Fragment>
+      <div className="border-b">
+        <div className="flex items-center text-sm justify-around capitalize font-semibold">
+          {["amasuzuma bumenyi yose", "ayo nakoze"].map((e, index) => {
+            return (
+              <a
+                onClick={() => {
+                  setselected(index);
+                }}
+                key={index}
+                className={`${
+                  index === selected
+                    ? "border-b-[2.5px] font-bold text-primary border-primary"
+                    : "border-b-transparent text-gray-400"
+                } w-full hover:bg-slate-50  border-b-[2.5px] hover:border-b-primary cursor-pointer py-3  justify-center text-center `}
+              >
+                {e}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+      <div className="py-4">
+        {selected === 0 && (
+          <div>
+            <All />
+          </div>
+        )}
+        {selected === 1 && (
+          <div>
+            <Done setselected={setselected} />
+          </div>
+        )}
+      </div>
+    </Fragment>
+  );
+}
+
+function All() {
+  const { user }: any = useAuth();
+  const { data, status } = useQuery(
+    "tests",
+    () =>
+      getDocs(query(collection(firestore, "tests"))).then(({ docs }) =>
+        docs.map((e) => {
+          return {
+            id: e.id,
+            ...e.data(),
+          };
+        })
+      ),
+    {
+      enabled: user !== undefined,
+    }
+  );
+
+  const router = useRouter();
+  return (
+    <div>
+      {" "}
+      {status === "success" && data.length && (
+        <div className="mt-1 grid sm:grid-cols-1 grid-cols-2 gap-3">
+          {data.map((e: any, index) => {
+            return (
+              <TestCard
+                key={index}
+                item={{
+                  id: e.id,
+                  name: e.name,
+                  lesson: "police",
+                  createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
+                    "en-US",
+                    {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    }
+                  ),
+                  counts: {
+                    questions: e.counts.questions || 10,
+                  },
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
+      {status === "loading" && (
+        <div className="w-full h-[50vh] flex items-center justify-center">
+          <Loader primary />
+        </div>
+      )}
+      {status === "success" && !data.length && (
+        <NoContent
+          Icon={() => {
+            return (
+              <img
+                height={150}
+                width={150}
+                className="mb-5"
+                src="/images/test.svg"
+              />
+            );
+          }}
+          title="Nta masuzuma ahari"
+          subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+        />
+      )}
+      {status === "success" && user.role === "admin" && (
+        <div className="flex py-7 justify-center">
+          <Button
+            onClick={() => {
+              router.push("/learn/tests/new");
+            }}
+            Icon={Plus}
+          >
+            Shyiramo isuzuma rishya
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Done({ setselected }) {
+  const { user }: any = useAuth();
+  const { data, status } = useQuery(
+    "user-tests",
+    () =>
+      getDocs(query(collection(firestore, "users", user.id, "tests"))).then(
+        ({ docs }) =>
+          docs.map((e) => {
+            return {
+              id: e.id,
+              ...e.data().test,
+            };
+          })
+      ),
+    {
+      enabled: user !== undefined,
+    }
+  );
+
+  return (
+    <div>
+      {status === "success" && data.length ? (
+        <div className="mt-1 grid sm:grid-cols-1 grid-cols-2 gap-3">
+          {data.map((e: any, index) => {
+            return (
+              <TestCard
+                key={index}
+                item={{
+                  id: e.id,
+                  name: e.name,
+                  lesson: "police",
+                  createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
+                    "en-US",
+                    {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    }
+                  ),
+                  counts: {
+                    questions: e.counts.questions || 10,
+                  },
+                }}
+              />
+            );
+          })}
+        </div>
+      ) : null}
+      {status === "loading" && (
+        <div className="w-full h-[50vh] flex items-center justify-center">
+          <Loader primary />
+        </div>
+      )}
+      {status === "success" && !data.length && (
+        <NoContent
+          Icon={() => {
+            return (
+              <img
+                height={150}
+                width={150}
+                className="mb-5"
+                src="/images/test.svg"
+              />
+            );
+          }}
+          action={{
+            title: "Shakisha amasuzuma",
+            onClick: () => {
+              setselected(0);
+            },
+          }}
+          title="Ubu nta masuzuma wakoze"
+          subTitle="kanda aho hasi kugirango ubashe gutangira isuzuma bumeny vuba vuba."
+        />
+      )}
+    </div>
+  );
+}
