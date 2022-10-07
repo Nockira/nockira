@@ -28,7 +28,10 @@ export default function ForgotPassword() {
         reloadAuth();
         setTimeout(() => {
           setSubmitting(false);
-          if (router.query.redirect_url) {
+          if (
+            router.query.redirect_url &&
+            router.query.redirect_url !== "undefined"
+          ) {
             router.push(router.query.redirect_url.toString());
           } else {
             router.push(`/learn`);
@@ -74,7 +77,7 @@ export default function ForgotPassword() {
             <Checkbox id="accept" label="Uremera amategeko n'amabwiriza" />
             <div />
           </div>
-          <SubmitButton>Ohereza kode</SubmitButton>
+          <SubmitButton>Tangira kwiga</SubmitButton>
           <div className="text-center mt-5">
             <span className="text-sm text-gray-600 font-semibold mt-2">
               <span className="text-[14px]"> Uribuka ijambobanga!</span>

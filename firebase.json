@@ -1,7 +1,26 @@
 {
   "hosting": {
     "public": "site/out",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "destination": "/learn/lessons/[id]/learn.html",
+        "source": "/learn/lessons/**/learn"
+      },
+      {
+        "destination": "/learn/lessons/[id].html",
+        "source": "/learn/lessons/**"
+      },
+      {
+        "destination": "/learn/tests/[id].html",
+        "source": "/learn/tests/**"
+      },
+      {
+        "destination": "/404.html",
+        "source": "**"
+      }
+    ]
   },
   "functions": [
     {

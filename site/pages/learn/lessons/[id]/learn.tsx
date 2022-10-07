@@ -110,7 +110,7 @@ export default function Learn() {
               );
             }}
             title="Nta bice biri muri iri somo"
-            subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+            subTitle="Iri somo nta bice rifite. fungura ayandi masomo."
           />
         )}
 
@@ -119,14 +119,17 @@ export default function Learn() {
             {sec && (
               <Fragment>
                 <div className="flex justify-between border-b pb-5 border-gray-200 items-center my-7">
-                  <h4 className="capitalize">{sec.name}</h4>
+                  <h4 className="capitalize line-clamp-2 leading-7">
+                    {sec.name}
+                  </h4>
                   {data[activeSection + 1] && (
                     <Button
+                      className="ml-5"
                       onClick={() => {
                         handleNext();
                       }}
                     >
-                      Next
+                      Komeza
                     </Button>
                   )}
                 </div>
@@ -207,7 +210,7 @@ export default function Learn() {
                 },
               }}
               title="Nta fatabuguzi ufite"
-              subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+              subTitle="Kanda hasi aho kigurango ubashe kwigurira ifatabuguzi utangire kwiga."
             />
           </div>
         )}
@@ -250,10 +253,9 @@ function CourseContentModal({ sections, setactiveQuestion, onClose }) {
                     setactiveQuestion(index);
                     onClose();
                   }}
-                  className="text-sm cursor-pointer flex items-center justify-between truncate border-t font-semibold text-gray-600 capitalize py-3 px-4"
+                  className="text-sm leading-8 hover:bg-slate-100 cursor-pointer flex items-center justify-between border-t font-semibold text-gray-600 capitalize py-3 px-4"
                 >
-                  <span> {e.name.slice(0, 60)}.</span>
-                  <Button normal>Komeza</Button>
+                  <span> {e.name}.</span>
                 </div>
               );
             })}

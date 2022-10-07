@@ -57,17 +57,17 @@ export default function Modal({
           )}
           <div
             className={`bg-gray-950 bg-white ${
-              !hAuto && "max-h-[78vh]"
-            } overflow-y-auto scrollbar ${
+              !hAuto && "max-h-[78vh] overflow-y-auto scrollbar"
+            }  ${
               size === "xl" && " overflow-y-scroll"
-            }`}
+            } overflow-hidden relative`}
             style={{ padding: noPadding ? "0px" : "15px" }}
           >
             {Content && <Content {...other} />}
           </div>
 
           {Actions && (
-            <div className="bg-gray-950 bg-white  py-3 px-4 justify-between flex relative border-t border-gray-200 rounded-br-[4px] rounded-bl-[4px]  sm:rounded-br-[0px] sm:rounded-bl-[0px]">
+            <div className="bg-gray-950 items-center bg-white  py-3 px-4 justify-between flex relative border-t border-gray-200 rounded-br-[4px] rounded-bl-[4px]  sm:rounded-br-[0px] sm:rounded-bl-[0px]">
               <Actions />
             </div>
           )}

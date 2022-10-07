@@ -1,4 +1,5 @@
 import { collection, getDoc, getDocs, limit, query } from "firebase/firestore";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -63,9 +64,13 @@ export default function Index() {
     <div className="my-2">
       <div className="flex items-center justify-between">
         <div>
-          <h4 className="mb-2">{tStatus}, Ntwali</h4>
+          {user && (
+            <h4 className="mb-2 capitalize sm:mb-0">
+              {tStatus}, {user.username.split(" ")[0]}
+            </h4>
+          )}
           <p className="text-sm sm:hidden font-semibold text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur.{" "}
+            hitamo isomo cyangwa isuzuma utangire kwiga.
           </p>
         </div>
         <Link href={"/learn/lessons"}>
@@ -165,8 +170,8 @@ export default function Index() {
                   Gura ifatabuguzi ryawe kugurango ubashe kwiga.
                 </h4>
                 <p className="text-sm max-w-sm leading-7 font-semibold text-gray-300">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod
+                  Kanda hasi aho kigurango ubashe kwigurira ifatabuguzi utangire
+                  kwiga.
                 </p>
               </div>
               <div className="sm:my-5">

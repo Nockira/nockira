@@ -9,6 +9,7 @@ import { collection, getDocs, limit, query } from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 import { useAuth } from "../../context/authContext";
 import Loader from "../../components/Loader";
+import { NextSeo } from "next-seo";
 
 export default function Lessons() {
   const [selected, setselected] = useState(0);
@@ -17,6 +18,7 @@ export default function Lessons() {
 
   return (
     <Fragment>
+      <NextSeo title="Amasomo" />
       <div className="border-b">
         <div className="flex items-center text-sm justify-around capitalize font-semibold">
           {["amasomo yose", "ayo niyandikishijemo"].map((e, index) => {
@@ -122,7 +124,7 @@ function All() {
             );
           }}
           title="Nta masomo ahari"
-          subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+          subTitle="Ntamasomo yo kwiga ahri muri aka kanya."
         />
       )}
       {status === "success" && user.role === "admin" && (

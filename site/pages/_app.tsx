@@ -6,7 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useState } from "react";
 import { ToastProvider } from "../context/toastContext";
 import { AuthProvider } from "../context/authContext";
-
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 declare global {
   interface Window {
     FB: any;

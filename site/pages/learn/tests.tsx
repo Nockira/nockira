@@ -1,4 +1,5 @@
 import { collection, getDocs, query } from "firebase/firestore";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { useState, Fragment } from "react";
 import { Plus } from "react-feather";
@@ -15,6 +16,7 @@ export default function Tests() {
   const [selected, setselected] = useState(0);
   return (
     <Fragment>
+      <NextSeo title="Amasuzuma bumenyi" />
       <div className="border-b">
         <div className="flex items-center text-sm justify-around capitalize font-semibold">
           {["amasuzuma bumenyi yose", "ayo nakoze"].map((e, index) => {
@@ -119,7 +121,7 @@ function All() {
             );
           }}
           title="Nta masuzuma ahari"
-          subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+          subTitle="Isuzuma ushaka ntarihari. mwongere mugerageze."
         />
       )}
       {status === "success" && user.role === "admin" && (

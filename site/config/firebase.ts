@@ -31,8 +31,6 @@ const functions = getFunctions(initializeApp(config));
 const firestore = getFirestore(initializeApp(config));
 const storage = getStorage(initializeApp(config));
 
-auth.settings.appVerificationDisabledForTesting = true;
-
 connectFunctionsEmulator(functions, "localhost", 5001);
 
 export function docToJSON(doc: any) {

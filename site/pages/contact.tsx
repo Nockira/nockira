@@ -39,15 +39,15 @@ export default function Contact() {
 
   return (
     <div className="lg:px-3 mb-10 pt-4">
-      <NextSeo title={"Contact us"} />{" "}
+      <NextSeo title={"Twandikire"} />{" "}
       <div className="mt-0 mb-16">
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-center md:mt-5 mt-10 text-center flex-col mb-5">
             <h3 className="font-bold text-xl mb-2 md:text-lg text-gray-900">
-              Contact us
+              Twandikire
             </h3>
             <p className="text-gray-500 font-semibold text-sm">
-              Let us know what you think.Any suggestion?
+              Reka tumenye niba haricyo utekereza mubyo utwandikira.
             </p>
           </div>
           <div>
@@ -62,10 +62,11 @@ export default function Contact() {
                       <div>
                         <div className="mb-30">
                           <h4 className="font-bold text-white mb-2">
-                            Contact Information
+                            Imyirondoro yacu.
                           </h4>
                           <p className="text-white text-sm">
-                            Let us know what you think.Any suggestion?
+                            Reka tumenye niba haricyo utekereza mubyo
+                            utwandikira.
                           </p>
                         </div>
                         <ul className="mt-10 text-white">
@@ -102,7 +103,7 @@ export default function Contact() {
                               className="flex items-center text-sm my-4 font-semibold"
                             >
                               <Globe size={15} className="mr-3" />
-                              www.exclsv.rw
+                              www.nockira.com
                             </a>
                           </li>
                         </ul>

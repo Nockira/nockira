@@ -19,6 +19,7 @@ import Button from "../../components/Button";
 import { useRouter } from "next/router";
 import AppFormStatus from "../../components/forms/AppFormStatus";
 import * as Yup from "yup";
+import { NextSeo } from "next-seo";
 
 export default function Account() {
   const { reloadAuth, user }: any = useAuth();
@@ -95,6 +96,7 @@ export default function Account() {
 
   return (
     <div>
+      <NextSeo title="Konte yange" />
       {user ? (
         <div className="max-w-6xl mx-auto my-0">
           <AppForm

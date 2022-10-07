@@ -116,7 +116,7 @@ export default function Lesson() {
             );
           }}
           title="Isomo ushaka narihari"
-          subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+          subTitle="Isomo ufunguye nago tubashije kiribona. mwongere mugerageze"
         />
       )}
       {status === "success" && data && (
@@ -133,7 +133,7 @@ export default function Lesson() {
                   </p>
                 </div>
 
-                <div className="sm:grid sm:grid-cols-2 sm:mt-8 sm:gap-4 flex flex-wrap sm:justify-start justify-between items-center my-6">
+                {/* <div className="sm:grid sm:grid-cols-2 sm:mt-8 sm:gap-4 flex flex-wrap sm:justify-start justify-between items-center my-6">
                   {[
                     {
                       icon: BookOpen,
@@ -170,7 +170,7 @@ export default function Lesson() {
                       </div>
                     );
                   })}
-                </div>
+                </div> */}
 
                 <div>
                   <div className="mt-7">
@@ -179,7 +179,7 @@ export default function Lesson() {
                         Ibyo uzavana mu isomo
                       </h4>
                     </div>
-                    <div className="grid grid-cols-2 gap-0">
+                    <div className="grid sm:grid-cols-1 grid-cols-2 gap-0">
                       {lesson.archivements.map((i, index) => {
                         return (
                           <div key={index} className="my-1 flex items-start">
@@ -203,7 +203,7 @@ export default function Lesson() {
                         Ibyo usabwa bwambere
                       </h4>
                     </div>
-                    <div className="grid grid-cols-2 gap-0">
+                    <div className="grid sm:grid-cols-1 grid-cols-2 gap-0">
                       {lesson.requirements.map((i, index) => {
                         return (
                           <div key={index} className="my-1 flex items-start">

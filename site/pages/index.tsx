@@ -1,13 +1,29 @@
 import { NextSeo } from "next-seo";
 import Link from "next/link";
+import Router from "next/router";
 import React, { Fragment } from "react";
 import HomeBanner from "../components/HomeBanner";
+
 export default function Home() {
   return (
     <Fragment>
       <NextSeo
         title="Nockira | Murakaza neza"
         description="korera perimi na provisoir mugihe gitoya"
+        openGraph={{
+          url: "https://www.nockira.com/",
+          title: "Nockira | Murakaza neza",
+          description:
+            "Uburyo bwa mbere bworoshye bwo kwigira provisoire mu Rwanda!.",
+          images: [
+            {
+              url: "/images/og.PNG",
+              width: 800,
+              height: 420,
+              alt: "Uburyo bwa mbere bworoshye bwo kwigira provisoire mu Rwanda!.",
+            },
+          ],
+        }}
       />
       <HomeBanner />
 
@@ -245,7 +261,7 @@ export default function Home() {
               <Link href="/contact">
                 <a className="text-primary ml-1">Hano</a>
               </Link>{" "}
-              kigirango utwandikere ubone ubufasha.
+              kugirango utwandikere ubone ubufasha.
             </p>
           </div>
         </div>

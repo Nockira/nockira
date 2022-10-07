@@ -1,3 +1,4 @@
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { useState, Fragment } from "react";
 import Button from "../../components/Button";
@@ -11,22 +12,23 @@ export default function Logout() {
 
   return (
     <Fragment>
+      <NextSeo title="Gusohoka" />
+
       <div className="max-w-2xl mt-2">
         <div className="card">
           <div className="p-4">
             <h4 className="text-[15px]">Sohoka muri konte yawe.</h4>
             <p className="text-sm font-semibold text-gray-400 my-4">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor
+              Kanda aho hasi kugirango ubashe gusohoka muri konte yawe
             </p>
             <div className="flex">
               <Button
                 loading={loadingLogout}
                 onClick={() => {
                   setloadingLogout(true);
+                  router.push("/");
                   setTimeout(() => {
                     logout();
-                    router.push("/");
                     setloadingLogout(false);
                   }, 1000);
                 }}

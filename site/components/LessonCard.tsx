@@ -15,7 +15,7 @@ export default function LessonCard({ item }) {
               <p className="">{item.createdAt}</p>
               {item?.counts?.questions ? (
                 <Fragment>
-                  <div className="sm:hidden mx-3 bg-gray-400 h-[6px] w-[6px] rounded-full" />
+                  <div className="mx-3 bg-gray-400 h-[6px] w-[6px] rounded-full" />
                   <p>{item?.counts.participants || 0} participants</p>
                 </Fragment>
               ) : null}

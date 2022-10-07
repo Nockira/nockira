@@ -13,16 +13,19 @@ import Alert from "../../components/Alert";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../context/authContext";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 export default function Plans() {
   const [selectedPlan, setselectedPlan] = useState<any>();
   return (
     <Fragment>
+      <NextSeo title="Ibyiciro by' ifatabuguzi" />
+
       <div className="flex items-center mb-7 justify-between">
         <div>
           <h4 className="my-2">Gura Ifatabuguzi</h4>
           <p className="text-sm font-semibold text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur.{" "}
+            Hitamo ifatabugizi hasi aho utangire kwiga.
           </p>
         </div>
       </div>

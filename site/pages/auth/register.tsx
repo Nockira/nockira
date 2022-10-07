@@ -28,12 +28,17 @@ export default function SignUp() {
       .signInWithPhone({ phone })
       .then((e) => {
         setSubmitting(false);
-        if (redirect_url) {
+        if (
+          router.query.redirect_url &&
+          router.query.redirect_url !== "undefined"
+        ) {
           router.push(
-            `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}`
+            `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}&phone=${phone}`
           );
         } else {
-          router.push(`/auth/verify-phone?verificationId=${e.verificationId}`);
+          router.push(
+            `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
+          );
         }
         resetForm();
       })

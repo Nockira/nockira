@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "export": "next export",
-    "build": "next build",
+    "serve": "firebase serve --only hosting",
+    "build": "next build && next export",
     "start": "next start",
-    "deploy": "firebase deploy",
+    "deploy": "firebase deploy --only hosting",
     "lint": "next lint"
   },
   "dependencies": {

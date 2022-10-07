@@ -5,14 +5,19 @@ import BreadCamps from "../components/breadCamps";
 export default function Terms() {
   return (
     <div>
-      <NextSeo title="Terms & Conditions" />
+      <NextSeo title="Amategeko n'amabwiriza" />
 
       <div className=" border-b lg:px-3 py-10 border-gray-100">
         <div className="mb-0 max-w-5xl mx-auto">
           <h1 className="text-gray-900 font-bold text-lg mb-3">
-            Terms & Conditions
+            Amategeko namabwiriza
           </h1>
-          <BreadCamps items={["home", "Terms & Conditions"]} />
+          <BreadCamps
+            items={[
+              { title: "ahabanza", link: "/" },
+              { title: "amateko n'mabwirza", link: "/terms" },
+            ]}
+          />
         </div>
       </div>
       <div className="max-w-5xl mx-auto lg:px-3">

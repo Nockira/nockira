@@ -8,11 +8,6 @@ import Navbar from "./Navbar";
 export const Layout = ({ children }: any) => {
   const router = useRouter();
   const { user, loading } = useAuth();
-  useEffect(() => {
-    if (!user && !loading && router.asPath.split("/").includes("learn")) {
-      router.push(`/auth/login?redirect_url=${router.asPath}`);
-    }
-  }, [user, loading, router.asPath]);
 
   return (
     <Fragment>
@@ -26,9 +21,9 @@ export const Layout = ({ children }: any) => {
           ) : router.asPath.split("/").includes("learn") ? (
             <LearnLayout>
               <div>
-                {user && !loading ? (
-                  <Fragment> {children}</Fragment>
-                ) : (
+                {user && !loading && <Fragment> {children}</Fragment>}
+
+                {!user && loading && (
                   <div className="w-full h-[60vh] flex items-center justify-center">
                     <Loader primary />
                   </div>

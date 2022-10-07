@@ -77,7 +77,7 @@ function useProvideAuth() {
       }
 
       const user = {
-        username: currentUser.displayName || currentUser.email.split("@")[0],
+        username: currentUser.displayName,
         phone: currentUser.phoneNumber,
         photo: currentUser.photoURL,
         id: currentUser.uid,

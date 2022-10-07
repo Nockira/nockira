@@ -10,7 +10,7 @@ export default function About() {
     <div className="my-3 sm:my-2">
       {" "}
       {/* <Button onClick={cc}>dcdcd</Button> */}
-      <NextSeo title="About us" />
+      <NextSeo title="Abo turibo" />
       <div className=" border-b lg:px-3 py-8 border-gray-100">
         <div className="mb-0 max-w-5xl mx-auto">
           <h1 className="text-gray-900 font-bold text-lg mb-3">Abo turibo</h1>

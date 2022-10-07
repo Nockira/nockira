@@ -8,6 +8,7 @@ import ReactCodeInput from "react-verification-code-input";
 import { AuthServices } from "../../services/auth.service";
 import { useRouter } from "next/router";
 import { useToast } from "../../context/toastContext";
+import Link from "next/link";
 
 export default function VerifyPhone() {
   const registerSchema = Yup.object().shape({
@@ -24,10 +25,20 @@ export default function VerifyPhone() {
           console.log(e);
           setSubmitting(false);
           if (!e.displayName) {
-            router.push(
-              `/auth/complete?redirect_url=${router.query.redirect_url}`
-            );
-          } else if (router.query.redirect_url) {
+            if (
+              router.query.redirect_url &&
+              router.query.redirect_url !== "undefined"
+            ) {
+              router.push(
+                `/auth/complete?redirect_url=${router.query.redirect_url}`
+              );
+            } else {
+              router.push(`/auth/complete`);
+            }
+          } else if (
+            router.query.redirect_url &&
+            router.query.redirect_url !== "undefined"
+          ) {
             router.push(router.query.redirect_url.toString());
           } else {
             router.push(`/learn`);
@@ -36,7 +47,7 @@ export default function VerifyPhone() {
         })
         .catch((error) => {
           setSubmitting(false);
-          toast.show({ title: error.message, danger: true });
+          toast.show({ title: "Gusuzuma code byanze", danger: true });
         });
     } else {
       setSubmitting(false);
@@ -57,7 +68,11 @@ export default function VerifyPhone() {
               Gusuzuma nimero ya telephone.
             </h4>
             <p className="font-semibold text-gray-400 text-[13px]">
-              Shyiramo kode yoherjwe kuri telephone.
+              Shyiramo kode yoherjwe kuri telephone ya{" "}
+              <span className="font-bold text-primary">
+                +{router?.query?.phone}
+              </span>
+              .
             </p>
           </div>
 
@@ -68,7 +83,11 @@ export default function VerifyPhone() {
           </div>
           <div className="flex justify-between my-4">
             <Checkbox id="register" label="Kwemera amategeko namabwiriza" />
-            <div />
+            <Link href="/auth/login">
+              <a className="text-sm text-primary  font-semibold">
+                Hindura nimero
+              </a>
+            </Link>
           </div>
           <SubmitButton>Gusuzuma kode.</SubmitButton>
         </div>

@@ -6,7 +6,7 @@ import { NextSeo } from "next-seo";
 export default function Page404() {
   return (
     <Fragment>
-      <NextSeo title={"404 - Page not found"} />
+      <NextSeo title={"404 - Ipagi nayihari"} />
       <div
         style={{
           minHeight: "calc(80vh - 66px)",
@@ -164,17 +164,17 @@ export default function Page404() {
           <g />
         </svg>
         <div className="font-bold text-lg capitalize my-2 text-gray-800">
-          Page not found
+          Ipage ushaka nayihari.
         </div>
         <p
           style={{ maxWidth: "350px" }}
           className="text-sm text-gray-600 leading-7 font-semibold mx-auto mb-2"
         >
-          You may have mistyped the address or the page may have moved
+          Pagi ushaka nayihari cyangwa se ikaba yarimukiye ahandi.
         </p>
 
         <Link href="/">
-          <Button className="mt-3">Take me back to Home</Button>
+          <Button className="mt-3">Nsubiza ahabanza</Button>
         </Link>
       </div>
     </Fragment>

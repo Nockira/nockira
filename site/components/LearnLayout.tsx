@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Home,
   LogOut,
@@ -17,7 +17,13 @@ import { Avatar } from "./Avatar";
 export default function LearnLayout({ children }) {
   const router = useRouter();
 
-  const { user }: any = useAuth();
+  const { user, loading }: any = useAuth();
+
+  useEffect(() => {
+    if (!user && !loading && router.asPath.split("/").includes("learn")) {
+      router.push(`/auth/login?redirect_url=${router.asPath}`);
+    }
+  }, [user, loading, router.asPath]);
 
   console.log(user);
   return (
@@ -98,7 +104,7 @@ export default function LearnLayout({ children }) {
             </ul>
             {user && (
               <div className="flex px-5 border-t border-gray-200 py-2 items-center">
-                <div className="border">
+                <div className="">
                   <Avatar src={user?.photo} name={user?.username} />
                 </div>
                 <div className="ml-3">

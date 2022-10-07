@@ -116,8 +116,8 @@ export default function Test() {
               />
             );
           }}
-          title="Isomo ushaka narihari"
-          subTitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+          title="Isuzuma ushaka narihari"
+          subTitle="Isuzuma ushaka narihari mwongere mugerageze mukanya."
         />
       )}
 
@@ -142,7 +142,7 @@ export default function Test() {
                         Amategeko y&apos;iri suzuma
                       </h4>
                     </div>
-                    <div className="grid grid-cols-2 gap-0">
+                    <div className="grid sm:grid-cols-1 grid-cols-2 gap-0">
                       {test.instructions.map((i, index) => {
                         return (
                           <div key={index} className="my-1 flex items-start">
@@ -246,8 +246,11 @@ export default function Test() {
 }
 
 function TestModal({ onClose, id }) {
+  const [activeQuestion, setactiveQuestion] = useState(1);
+  const [loadingNext, setloadingNext] = useState(false);
+
   const { user }: any = useAuth();
-  const { data, status } = useQuery(
+  const { data: questions, status }: any = useQuery(
     ["tests", id, "questions"],
     () =>
       getDocs(query(collection(firestore, "tests", id, "questions"))).then(
@@ -261,52 +264,34 @@ function TestModal({ onClose, id }) {
       ),
     {
       enabled: user !== undefined,
+      // initialData: [],
     }
   );
-  return (
-    <Modal
-      noPadding
-      onClose={onClose}
-      title="Isuzuma bumenyi"
-      size="lg"
-      Content={() => {
-        return (
-          <div>
-            {status === "loading" ? (
-              <div className="w-full flex items-center justify-center min-h-[350px]">
-                <Loader primary small />
-              </div>
-            ) : data.length ? (
-              <Quiz quiz={{ questions: data }} />
-            ) : (
-              <div className="w-full flex items-center justify-center min-h-[350px]">
-                <p className="text-sm font-semibold">Nta bibazo bihari</p>
-              </div>
-            )}
-          </div>
-        );
-      }}
-    />
-  );
-}
+  const [answers, setanswers] = useState([]);
 
-function Quiz({ quiz }) {
-  const [activeQuestion, setactiveQuestion] = useState(1);
-  const [answers, setanswers] = useState(
-    quiz.questions.map((e) => {
-      return {
-        id: e.id,
-      };
-    })
-  );
-  const q = quiz.questions.find((e) => e.position === activeQuestion);
+  useEffect(() => {
+    if (status === "success" && questions?.length) {
+      setanswers(
+        questions.map((e) => {
+          return {
+            id: e.id,
+          };
+        })
+      );
+    }
+  }, [questions]);
 
-  const [loadingNext, setloadingNext] = useState(false);
+  const [completed, setcompleted] = useState(false);
+
+  const q =
+    status === "success"
+      ? questions.find((e) => e.position === activeQuestion)
+      : [];
 
   const handleNext = () => {
     setloadingNext(true);
     setTimeout(() => {
-      if (activeQuestion === quiz.questions.length) {
+      if (activeQuestion === questions.length) {
         setcompleted(true);
       } else {
         setloadingNext(false);
@@ -318,82 +303,25 @@ function Quiz({ quiz }) {
     setactiveQuestion(activeQuestion - 1);
   };
 
-  const [completed, setcompleted] = useState(false);
-
-  const loadMarks = () => {
-    const total = quiz.questions.length;
-    const passed = answers.filter((e) => e.correct).length || 0;
-    return {
-      total,
-      passed,
-      percent: (passed * 100) / total,
-    };
-  };
-
-  const [timer, setTimer] = React.useState(10);
-
+  const [timer, setTimer] = React.useState(240);
   return (
-    <div className="relative">
-      {!completed && (
-        <Timer setTimer={setTimer} timer={timer} setcompleted={setcompleted} />
-      )}
-      <div className="pt-6">
-        {completed ? (
-          <div className="flex py-8 flex-col justify-center items-center">
-            <img
-              width={150}
-              height={150}
-              src={
-                loadMarks().percent < 70
-                  ? "/images/failed.svg"
-                  : "/images/test.svg"
-              }
-              alt=""
-            />
-            <h4 className="text-base mt-6">
-              {loadMarks().percent < 70
-                ? "watsizwe subiramo"
-                : "watsinze umwitozo"}
-            </h4>
-            <p className="max-w-xs my-2 text-center leading-7 text-sm font-semibold text-gray-500">
-              Urakoze gukora isuzuma bumenyi. kanga hasi aho kurisubiramo.
-            </p>
-
-            <div className="border-2 my-2 border-gray-200 font-bold text-gray-500 rounded-full p-3">
-              <span>{loadMarks().passed}</span>
-              <span>/</span>
-              <span>{loadMarks().total}</span>
-            </div>
-            <Button
-              onClick={() => {
-                setactiveQuestion(1);
-                setcompleted(false);
-                setloadingNext(false);
-                setTimer(10);
-                setanswers(
-                  quiz.questions.map((e) => {
-                    return {
-                      id: e.id,
-                    };
-                  })
-                );
-              }}
-              className="mt-2"
-            >
-              Subiramo
-            </Button>
-          </div>
-        ) : (
+    <Modal
+      hAuto
+      noPadding
+      onClose={onClose}
+      title="Isuzuma bumenyi"
+      size="lg"
+      Actions={() => {
+        return (
           <Fragment>
-            <div className="overflow-y-auto w-full relative bg-white sm:h-[40vh]">
-              {activeQuestion && (
-                <Question q={q} setanswers={setanswers} answers={answers} />
-              )}
-            </div>
-            {activeQuestion && (
-              <div className="flex justify-between border-t border-gray-200 py-2 bg-white px-6 items-center">
+            {q && status === "success" && !completed && (
+              <Fragment>
                 <p className="font-semibold sm:hidden text-gray-500 text-sm">
-                  Question {q.position} of {quiz.questions.length}
+                  {status === "success" && q && (
+                    <Fragment>
+                      Question {q.position} of {questions.length}
+                    </Fragment>
+                  )}
                 </p>
                 <div className="flex items-center sm:w-full sm:justify-between ">
                   <Fragment>
@@ -411,21 +339,144 @@ function Quiz({ quiz }) {
                     </Button>
                     <Button
                       loading={loadingNext}
-                      disabled={!answers.find((e) => e.id === q.id).answer}
+                      disabled={!answers.find((e) => e.id === q.id)?.answer}
                       onClick={() => {
                         handleNext();
                       }}
                     >
-                      {activeQuestion === quiz.questions.length
-                        ? "Soza"
-                        : "Komeza"}
+                      {activeQuestion === questions.length ? "Soza" : "Komeza"}
                     </Button>
                   </Fragment>
                 </div>
-              </div>
+              </Fragment>
             )}
           </Fragment>
+        );
+      }}
+      Content={() => {
+        return (
+          <div>
+            {status === "loading" ? (
+              <div className="w-full flex items-center justify-center min-h-[350px]">
+                <Loader primary small />
+              </div>
+            ) : questions.length && answers.length ? (
+              <Quiz
+                setactiveQuestion={setactiveQuestion}
+                activeQuestion={activeQuestion}
+                quiz={{ questions: questions }}
+                answers={answers}
+                setcompleted={setcompleted}
+                completed={completed}
+                setloadingNext={setloadingNext}
+                setanswers={setanswers}
+                timer={timer}
+                setTimer={setTimer}
+                q={q}
+              />
+            ) : !questions?.length && !answers?.length ? (
+              <div className="w-full flex items-center justify-center min-h-[350px]">
+                <p className="text-sm font-semibold">Nta bibazo bihari</p>
+              </div>
+            ) : (
+              <div className="h-[200px]"></div>
+            )}
+          </div>
+        );
+      }}
+    />
+  );
+}
+
+function Quiz({
+  quiz,
+  setactiveQuestion,
+  activeQuestion,
+  answers,
+  completed,
+  setcompleted,
+  setloadingNext,
+  setanswers,
+  timer,
+  setTimer,
+  q,
+}) {
+  const loadMarks = () => {
+    const total = quiz.questions.length;
+    const passed = answers.filter((e) => e.correct).length || 0;
+    return {
+      total,
+      passed,
+      percent: (passed * 100) / total,
+    };
+  };
+
+  return (
+    <div>
+      <div className="relative">
+        {!completed && (
+          <Timer
+            setTimer={setTimer}
+            timer={timer}
+            setcompleted={setcompleted}
+          />
         )}
+        <div className="pt-6">
+          {completed ? (
+            <div className="flex py-8 flex-col justify-center items-center">
+              <img
+                width={150}
+                height={150}
+                src={
+                  loadMarks().percent < 70
+                    ? "/images/failed.svg"
+                    : "/images/test.svg"
+                }
+                alt=""
+              />
+              <h4 className="text-base mt-6">
+                {loadMarks().percent < 65
+                  ? "watsizwe subiramo"
+                  : "watsinze umwitozo"}
+              </h4>
+              <p className="max-w-xs my-2 text-center leading-7 text-sm font-semibold text-gray-500">
+                Urakoze gukora isuzuma bumenyi. kanga hasi aho kurisubiramo.
+              </p>
+
+              <div className="border-2 my-2 border-gray-200 font-bold text-gray-500 rounded-full p-3">
+                <span>{loadMarks().passed}</span>
+                <span>/</span>
+                <span>{loadMarks().total}</span>
+              </div>
+              <Button
+                onClick={() => {
+                  setactiveQuestion(1);
+                  setcompleted(false);
+                  setloadingNext(false);
+                  setTimer(240);
+                  setanswers(
+                    quiz.questions.map((e) => {
+                      return {
+                        id: e.id,
+                      };
+                    })
+                  );
+                }}
+                className="mt-2"
+              >
+                Subiramo
+              </Button>
+            </div>
+          ) : (
+            <Fragment>
+              <div className="overflow-y-auto  w-full relative bg-white sm:h[40vh]">
+                {activeQuestion && (
+                  <Question q={q} setanswers={setanswers} answers={answers} />
+                )}
+              </div>
+            </Fragment>
+          )}
+        </div>
       </div>
     </div>
   );
