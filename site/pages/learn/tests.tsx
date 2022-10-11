@@ -3,10 +3,11 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { useState, Fragment } from "react";
 import { Plus } from "react-feather";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Button from "../../components/Button";
 import LearnLayout from "../../components/LearnLayout";
 import Loader from "../../components/Loader";
+import NewTestModal from "../../components/NewTestModal";
 import NoContent from "../../components/NoContent";
 import TestCard from "../../components/TestCard";
 import { firestore } from "../../config/firebase";
@@ -73,8 +74,12 @@ function All() {
   );
 
   const router = useRouter();
+
+  const [showAddModal, setshowAddModal] = useState(false);
+  const client = useQueryClient();
+
   return (
-    <div>
+    <Fragment>
       {" "}
       {status === "success" && data.length && (
         <div className="mt-1 grid sm:grid-cols-1 grid-cols-2 gap-3">
@@ -128,7 +133,7 @@ function All() {
         <div className="flex py-7 justify-center">
           <Button
             onClick={() => {
-              router.push("/learn/tests/new");
+              setshowAddModal(true);
             }}
             Icon={Plus}
           >
@@ -136,7 +141,17 @@ function All() {
           </Button>
         </div>
       )}
-    </div>
+      {showAddModal && (
+        <NewTestModal
+          reFetch={() => {
+            client.invalidateQueries("tests");
+          }}
+          onClose={() => {
+            setshowAddModal(false);
+          }}
+        />
+      )}
+    </Fragment>
   );
 }
 

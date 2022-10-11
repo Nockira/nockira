@@ -8,6 +8,7 @@ export default function TableRow({
   multiSelect,
   checked,
   i,
+  actions,
   setchecked,
   setactiveRow,
 }: any) {
@@ -81,11 +82,14 @@ export default function TableRow({
                 ) : col.isStatus ? (
                   <span
                     className={`${
-                      i[col.name] === "completed" || i[col.name] === "success"
+                      i[col.name] === "completed" ||
+                      i[col.name] === "success" ||
+                      i[col.name] === "active"
                         ? "text-green-500 bg-green-100"
                         : i[col.name] === "pending"
                         ? "text-orange-500 bg-orange-100"
-                        : i[col.name] === "canceled"
+                        : i[col.name] === "canceled" ||
+                          i[col.name] === "expired"
                         ? "text-red-500 bg-red-100"
                         : i[col.name] === "processing"
                         ? "text-blue-500 bg-blue-100"
@@ -115,18 +119,20 @@ export default function TableRow({
             </td>
           );
         })}
-        <td className="border border-r-0  border-gray-100 text-right border-l-0 p-2 pl-4 text-gray-400 dark:text-slate-400">
-          <div className="flex justify-end">
-            <a
-              onClick={() => {
-                setactiveRow(i.all);
-              }}
-              className="w-8 h-8 border-transparent border hover:odd:border-gray-100 rounded-full cursor-pointer hover:bg-gray-50 flex justify-center items-center"
-            >
-              <MoreVertical className="text-right" size={15} />
-            </a>
-          </div>
-        </td>
+        {actions.length ? (
+          <td className="border border-r-0  border-gray-100 text-right border-l-0 p-2 pl-4 text-gray-400 dark:text-slate-400">
+            <div className="flex justify-end">
+              <a
+                onClick={() => {
+                  setactiveRow(i.all);
+                }}
+                className="w-8 h-8 border-transparent border hover:odd:border-gray-100 rounded-full cursor-pointer hover:bg-gray-50 flex justify-center items-center"
+              >
+                <MoreVertical className="text-right" size={15} />
+              </a>
+            </div>
+          </td>
+        ) : null}
       </tr>
     </Fragment>
   );

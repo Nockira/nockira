@@ -10,18 +10,20 @@ export default function Index() {
       name: "name",
       isFlex: true,
       title: "name",
-      subTitle: "email",
+      subTitle: "phone",
       photo: "photo",
       isAvatar: true,
     },
     {
       name: "role",
     },
+
     {
-      name: "gender",
+      name: "joined",
     },
     {
-      name: "phone",
+      name: "subscription",
+      isStatus: true,
     },
   ];
 
@@ -34,33 +36,29 @@ export default function Index() {
   return (
     <Fragment>
       <DataTable
+        noActions
         title="users"
         myRef={myRef}
         columns={colums}
         format={(e) => {
           return {
             id: e.id,
-            name: e.username || e.email.split("@")[0],
-            photo: e.photoURL,
-            email: e.email,
+            name: e.username,
+            photo: e.photo,
             phone: e.phone || "---",
-            gender: e.gender || "---",
             role: e.role || "---",
+            joined:
+              e.createdAt.toDate().toLocaleDateString("en-US", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              }) || "---",
+            subscription: e.subscription?.status || "---",
             all: e,
           };
         }}
         name="users"
-        actions={[
-          {
-            title: "disable user",
-            icon: Trash,
-            autoHide: true,
-            loading: loadingDisable,
-            action: (e) => {
-              handleDisable(e);
-            },
-          },
-        ]}
+        actions={[]}
       />
     </Fragment>
   );

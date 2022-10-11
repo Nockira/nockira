@@ -19,7 +19,9 @@ function MyApp({ Component, pageProps }) {
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: {},
+          queries: {
+            staleTime: Infinity,
+          },
         },
       })
   );

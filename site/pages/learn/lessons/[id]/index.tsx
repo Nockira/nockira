@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -24,7 +25,7 @@ import {
   Trash,
   Users,
 } from "react-feather";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Button from "../../../../components/Button";
 import LearnLayout from "../../../../components/LearnLayout";
 import Loader from "../../../../components/Loader";
@@ -34,13 +35,15 @@ import { useAuth } from "../../../../context/authContext";
 import { useToast } from "../../../../context/toastContext";
 
 export default function Lesson() {
-  const handleDelete = () => {};
+  const toast: any = useToast();
 
   const router = useRouter();
 
   const { user }: any = useAuth();
 
   const { id }: any = router.query;
+
+  const client = useQueryClient();
 
   const { data, status } = useQuery(
     ["lessons", id],
@@ -62,11 +65,26 @@ export default function Lesson() {
 
   const lesson: any = data;
 
-  const toast: any = useToast();
+  const [deleting, setdeleting] = useState(false);
 
+  const handleDelete = () => {
+    if (confirm("urashaka gusiba isomo")) {
+      setdeleting(true);
+      return deleteDoc(doc(firestore, "lessons", id))
+        .then((e) => {
+          toast.show({ title: "gusiba isomo byagenze neza" });
+          router.push(`/learn/lessons`);
+          setdeleting(false);
+          client.invalidateQueries("lessons");
+        })
+        .catch((e) => {
+          toast.show({ title: e.message, danger: true });
+        });
+    }
+  };
   const [starting, setstarting] = useState(false);
   const handleStart = async () => {
-    if (user.subscription !== "pro") {
+    if (user.subscription !== "active") {
       router.push(`/learn/plans?redirect_url=${router.asPath}`);
     } else {
       setstarting(true);
@@ -280,6 +298,7 @@ export default function Lesson() {
                 className="flex-1"
                 Icon={Trash}
                 danger
+                loading={deleting}
               >
                 Siba isomo
               </Button>

@@ -114,7 +114,7 @@ export default function Learn() {
           />
         )}
 
-        {user.subscription === "pro" ? (
+        {user.subscription === "active" ? (
           <Fragment>
             {sec && (
               <Fragment>

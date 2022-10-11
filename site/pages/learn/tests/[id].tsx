@@ -17,9 +17,10 @@ import posed from "react-pose";
 import Radio from "../../../components/Radio";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../context/authContext";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -33,8 +34,6 @@ import NoContent from "../../../components/NoContent";
 import { useToast } from "../../../context/toastContext";
 
 export default function Test() {
-  const handleDelete = () => {};
-
   const router = useRouter();
   const [showTestModal, setshowTestModal] = useState(false);
 
@@ -65,7 +64,7 @@ export default function Test() {
   const toast: any = useToast();
   const [starting, setstarting] = useState(false);
   const handleStart = async () => {
-    if (user.subscription !== "pro") {
+    if (user.subscription !== "active") {
       router.push(`/learn/plans?redirect_url=${router.asPath}`);
     } else {
       setstarting(true);
@@ -93,6 +92,25 @@ export default function Test() {
         })
         .catch((e) => {
           setstarting(false);
+          toast.show({ title: e.message, danger: true });
+        });
+    }
+  };
+  const client = useQueryClient();
+
+  const [deleting, setdeleting] = useState(false);
+
+  const handleDelete = () => {
+    if (confirm("urashaka gusiba isuzuma")) {
+      setdeleting(true);
+      return deleteDoc(doc(firestore, "tests", id))
+        .then((e) => {
+          toast.show({ title: "gusiba isomo byagenze neza" });
+          router.push(`/learn/tests`);
+          setdeleting(false);
+          client.invalidateQueries("tests");
+        })
+        .catch((e) => {
           toast.show({ title: e.message, danger: true });
         });
     }
@@ -215,9 +233,10 @@ export default function Test() {
                 }}
                 className="flex-1"
                 Icon={Trash}
+                loading={deleting}
                 danger
               >
-                Siba isomo
+                Siba isuzuma
               </Button>
               <Button
                 onClick={() => {

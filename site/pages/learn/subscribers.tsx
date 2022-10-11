@@ -9,18 +9,20 @@ export default function Subscriptions() {
       name: "name",
       isFlex: true,
       title: "name",
-      subTitle: "email",
-      photo: "photo",
-      isAvatar: true,
+      subTitle: "phone",
     },
     {
-      name: "role",
+      name: "plan",
     },
     {
-      name: "gender",
+      name: "start",
     },
     {
-      name: "phone",
+      name: "end",
+    },
+    {
+      name: "status",
+      isStatus: true,
     },
   ];
 
@@ -31,7 +33,7 @@ export default function Subscriptions() {
   const handleDisable = (e) => {};
 
   return (
-    <Fragment>
+    <div className="min-w-[700px]">
       <DataTable
         title="Subscriptions"
         myRef={myRef}
@@ -39,28 +41,42 @@ export default function Subscriptions() {
         format={(e) => {
           return {
             id: e.id,
-            name: e.user?.username || e.user?.email.split("@")[0],
+            name: e.user?.names,
             photo: e.user?.photoURL,
             email: e.user?.email,
-            start: e.start?.toDate() || "---",
-            end: e.end?.toDate() || "---",
+            start:
+              e.start?.toDate().toLocaleDateString("en-US", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              }) || "---",
+            end:
+              e.end?.toDate().toLocaleDateString("en-US", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              }) || "---",
             plan: e.plan || "---",
+            status: e.status || "---",
+            phone: e.user?.phone || "---",
             all: e,
           };
         }}
         name="subscriptions"
-        actions={[
-          {
-            title: "cancel subscription",
-            icon: X,
-            autoHide: true,
-            loading: loadingDisable,
-            action: (e) => {
-              handleDisable(e);
-            },
-          },
-        ]}
+        actions={
+          [
+            // {
+            //   title: "cancel subscription",
+            //   icon: X,
+            //   autoHide: true,
+            //   loading: loadingDisable,
+            //   action: (e) => {
+            //     handleDisable(e);
+            //   },
+            // },
+          ]
+        }
       />
-    </Fragment>
+    </div>
   );
 }

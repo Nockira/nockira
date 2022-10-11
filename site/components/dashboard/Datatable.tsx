@@ -183,9 +183,11 @@ export default function DataTable({
                       </th>
                     );
                   })}
-                  <th className="text-right py-4 px-4 font-bold capitalize text-sm border-b text-gray-600 border-opacity-70 border-gray-200 border-l-0 border-r-0">
-                    Action
-                  </th>
+                  {actions.length ? (
+                    <th className="text-right py-4 px-4 font-bold capitalize text-sm border-b text-gray-600 border-opacity-70 border-gray-200 border-l-0 border-r-0">
+                      Action
+                    </th>
+                  ) : null}
                 </thead>
                 <tbody>
                   {!loading && records.length !== 0 && (
@@ -195,9 +197,9 @@ export default function DataTable({
                         .map((e, index) => {
                           return (
                             <TableRow
+                              actions={actions}
                               activeRow={activeRow}
                               setactiveRow={setactiveRow}
-                              actions={actions}
                               colums={columns}
                               i={e}
                               onActionClick={() => {}}

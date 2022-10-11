@@ -4,12 +4,13 @@ import LessonCard from "../../components/LessonCard";
 import NoContent from "../../components/NoContent";
 import { Book, Plus } from "react-feather";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { collection, getDocs, limit, query } from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 import { useAuth } from "../../context/authContext";
 import Loader from "../../components/Loader";
 import { NextSeo } from "next-seo";
+import NewLessonModal from "../../components/NewLessonModal";
 
 export default function Lessons() {
   const [selected, setselected] = useState(0);
@@ -56,8 +57,9 @@ export default function Lessons() {
   );
 }
 
-function All() {
+function All({}) {
   const { user }: any = useAuth();
+  const client = useQueryClient();
   const { data, status } = useQuery(
     "lessons",
     () =>
@@ -75,8 +77,11 @@ function All() {
   );
 
   const router = useRouter();
+
+  const [showAddModal, setshowAddModal] = useState(false);
+
   return (
-    <div>
+    <Fragment>
       {" "}
       {status === "success" && data.length && (
         <div className="mt-1 grid sm:grid-cols-1 grid-cols-2 gap-3">
@@ -131,7 +136,7 @@ function All() {
         <div className="flex py-7 justify-center">
           <Button
             onClick={() => {
-              router.push("/learn/lessons/new");
+              setshowAddModal(true);
             }}
             Icon={Plus}
           >
@@ -139,7 +144,17 @@ function All() {
           </Button>
         </div>
       )}
-    </div>
+      {showAddModal && (
+        <NewLessonModal
+          reFetch={() => {
+            client.invalidateQueries("lessons");
+          }}
+          onClose={() => {
+            setshowAddModal(false);
+          }}
+        />
+      )}
+    </Fragment>
   );
 }
 

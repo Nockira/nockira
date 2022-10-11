@@ -163,7 +163,7 @@ export default function Index() {
             </div>
           )}
 
-          {user?.subscription !== "pro" && (
+          {user?.subscription !== "active" && (
             <div className="mt-7 bg-[#7933ff] sm:text-center sm:flex-col sm:items-center sm:justify-center px-6 rounded-md py-6 flex items-center justify-between">
               <div>
                 <h4 className="text-white mb-3">
