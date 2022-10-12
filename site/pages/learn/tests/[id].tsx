@@ -6,6 +6,7 @@ import {
   Edit,
   File,
   Globe,
+  HelpCircle,
   Mic,
   Smartphone,
   Trash,
@@ -32,6 +33,7 @@ import { firestore } from "../../../config/firebase";
 import Loader from "../../../components/Loader";
 import NoContent from "../../../components/NoContent";
 import { useToast } from "../../../context/toastContext";
+import NewTestModal from "../../../components/NewTestModal";
 
 export default function Test() {
   const router = useRouter();
@@ -115,6 +117,8 @@ export default function Test() {
         });
     }
   };
+
+  const [showUpdateModal, setshowUpdateModal] = useState(false);
   return (
     <div>
       {status === "loading" && (
@@ -240,16 +244,37 @@ export default function Test() {
               </Button>
               <Button
                 onClick={() => {
-                  router.push(router.asPath + "/update");
+                  setshowUpdateModal(true);
                 }}
                 className="flex-1 bg-[#7933ff] "
                 Icon={Edit}
               >
                 hindura
               </Button>
+              <Button
+                onClick={() => {
+                  router.push(router.asPath + "/questions");
+                }}
+                className="flex-1 bg-slate-900 "
+                Icon={HelpCircle}
+              >
+                Ibibazo
+              </Button>
             </div>
           )}
         </Fragment>
+      )}
+
+      {showUpdateModal && data && (
+        <NewTestModal
+          test={data}
+          reFetch={() => {
+            client.invalidateQueries(["test", id]);
+          }}
+          onClose={() => {
+            setshowUpdateModal(false);
+          }}
+        />
       )}
 
       {showTestModal && data && (
@@ -264,7 +289,7 @@ export default function Test() {
   );
 }
 
-function TestModal({ onClose, id }) {
+function TestModal({ onClose, id }: any) {
   const [activeQuestion, setactiveQuestion] = useState(1);
   const [loadingNext, setloadingNext] = useState(false);
 

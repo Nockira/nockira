@@ -29,6 +29,8 @@ import { useQuery, useQueryClient } from "react-query";
 import Button from "../../../../components/Button";
 import LearnLayout from "../../../../components/LearnLayout";
 import Loader from "../../../../components/Loader";
+import NewLessonModal from "../../../../components/NewLessonModal";
+import NewTestModal from "../../../../components/NewTestModal";
 import NoContent from "../../../../components/NoContent";
 import { firestore } from "../../../../config/firebase";
 import { useAuth } from "../../../../context/authContext";
@@ -113,6 +115,8 @@ export default function Lesson() {
         });
     }
   };
+
+  const [showUpdateModal, setshowUpdateModal] = useState(false);
 
   return (
     <Fragment>
@@ -304,16 +308,37 @@ export default function Lesson() {
               </Button>
               <Button
                 onClick={() => {
-                  router.push(router.asPath + "/update");
+                  setshowUpdateModal(true);
                 }}
                 className="flex-1 bg-[#7933ff] "
                 Icon={Edit}
               >
                 hindura
               </Button>
+              <Button
+                onClick={() => {
+                  router.push(router.asPath + "/sections");
+                }}
+                className="flex-1 bg-slate-900 "
+                Icon={Edit}
+              >
+                ibice
+              </Button>
             </div>
           )}
         </Fragment>
+      )}
+
+      {showUpdateModal && data && (
+        <NewLessonModal
+          lesson={data}
+          reFetch={() => {
+            client.invalidateQueries(["lessons", id]);
+          }}
+          onClose={() => {
+            setshowUpdateModal(false);
+          }}
+        />
       )}
     </Fragment>
   );

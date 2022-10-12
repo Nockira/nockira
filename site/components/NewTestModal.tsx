@@ -8,11 +8,17 @@ import ClearButton from "./forms/ClearButton";
 import SubmitButton from "./forms/SubmitButton";
 import Modal from "./Modal";
 import * as Yup from "yup";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import { useToast } from "../context/toastContext";
 
-export default function NewTestModal({ onClose, reFetch }) {
+export default function NewTestModal({ onClose, reFetch, test }) {
   const schema = Yup.object().shape({
     name: Yup.string().required(),
     instructions: Yup.array(),
@@ -20,17 +26,23 @@ export default function NewTestModal({ onClose, reFetch }) {
   });
   const toast: any = useToast();
   const handleSubmit = (values: any) => {
-    return addDoc(collection(firestore, "tests"), {
+    const data = {
       name: values.name,
       instructions: values.instructions,
       desc: values.desc,
-      createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-      counts: {
-        questions: 0,
-        participants: 0,
-      },
-    })
+    };
+    const q = test
+      ? updateDoc(doc(firestore, "tests", test.id), data)
+      : addDoc(collection(firestore, "tests"), {
+          ...data,
+          createdAt: serverTimestamp(),
+          counts: {
+            questions: 0,
+            participants: 0,
+          },
+        });
+    return q
       .then((e) => {
         onClose();
         reFetch();
@@ -43,7 +55,11 @@ export default function NewTestModal({ onClose, reFetch }) {
   return (
     <AppForm
       onSubmit={handleSubmit}
-      initialValues={{ name: "", instructions: [], desc: "" }}
+      initialValues={{
+        name: test?.name || "",
+        instructions: test?.instructions || [],
+        desc: test?.desc || "",
+      }}
       validationSchema={schema}
     >
       <Modal

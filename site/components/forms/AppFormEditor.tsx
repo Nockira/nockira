@@ -19,13 +19,15 @@ export default function AppFormEditor({ name }) {
   const [editorState, seteditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
-    const contentBlock = htmlToDraft(values[name]);
-    if (contentBlock) {
-      const contentState = ContentState.createFromBlockArray(
-        contentBlock.contentBlocks
-      );
-      const editorState = EditorState.createWithContent(contentState);
-      seteditorState(editorState);
+    if (typeof window !== "undefined") {
+      const contentBlock = htmlToDraft(values[name]);
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        const editorState = EditorState.createWithContent(contentState);
+        seteditorState(editorState);
+      }
     }
   }, []);
 
@@ -38,14 +40,14 @@ export default function AppFormEditor({ name }) {
   }, [html]);
 
   return (
-    <div>
+    <div className="border border-gray-200">
       <Editor
-        editorState={editorState}
+        // editorState={editorState}
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor mt-0 mb-0 markdown px-3"
-        onEditorStateChange={(e: any) => {
-          seteditorState(e);
-        }}
+        // onEditorStateChange={(e: any) => {
+        //   seteditorState(e);
+        // }}
       />
     </div>
   );

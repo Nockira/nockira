@@ -8,11 +8,17 @@ import ClearButton from "./forms/ClearButton";
 import SubmitButton from "./forms/SubmitButton";
 import Modal from "./Modal";
 import * as Yup from "yup";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import { useToast } from "../context/toastContext";
 
-export default function NewLessonModal({ onClose, reFetch }) {
+export default function NewLessonModal({ onClose, reFetch, lesson }) {
   const schema = Yup.object().shape({
     name: Yup.string().required(),
     requirements: Yup.array(),
@@ -24,18 +30,23 @@ export default function NewLessonModal({ onClose, reFetch }) {
     values: any,
     { resetForm, setSubmitting, setErrors, setStatus }: any
   ) => {
-    return addDoc(collection(firestore, "lessons"), {
+    const data = {
       name: values.name,
       requirements: values.requirements,
       archivements: values.archivements,
       desc: values.desc,
-      createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-      counts: {
-        sections: 0,
-        participants: 0,
-      },
-    })
+    };
+    const q = lesson
+      ? updateDoc(doc(firestore, "lessons", lesson.id), data)
+      : addDoc(collection(firestore, "lessons"), {
+          createdAt: serverTimestamp(),
+          counts: {
+            sections: 0,
+            participants: 0,
+          },
+        });
+    return q
       .then((e) => {
         onClose();
         reFetch();
@@ -49,10 +60,10 @@ export default function NewLessonModal({ onClose, reFetch }) {
     <AppForm
       onSubmit={handleSubmit}
       initialValues={{
-        name: "",
-        requirements: [],
-        archivements: [],
-        desc: "",
+        name: lesson?.name || "",
+        requirements: lesson?.requirements || [],
+        archivements: lesson?.archivements || [],
+        desc: lesson?.desc || "",
       }}
       validationSchema={schema}
     >
