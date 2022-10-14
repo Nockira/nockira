@@ -31,7 +31,7 @@ const functions = getFunctions(initializeApp(config));
 const firestore = getFirestore(initializeApp(config));
 const storage = getStorage(initializeApp(config));
 
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 
 export function docToJSON(doc: any) {
   const data = doc.data();

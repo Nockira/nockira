@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
         <title>Nockira</title>
       </Head>
       <AuthProvider>
+          
         <ToastProvider>
           <Layout>
             <Toaster position="bottom-right" reverseOrder={false} />
@@ -44,3 +45,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+

@@ -81,7 +81,7 @@ function useProvideAuth() {
         phone: currentUser.phoneNumber,
         photo: currentUser.photoURL,
         id: currentUser.uid,
-        subscription: claims?.subscription?.status || "active",
+        subscription: claims?.subscription?.status,
         role: claims.role || "admin",
       };
       setUser(user);

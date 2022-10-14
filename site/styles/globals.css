@@ -603,3 +603,24 @@ input[type="number"] {
 .invoice-table td {
   @apply border-b border-gray-200 border-l-0 border-r-0 text-sm capitalize text-gray-600 font-semibold py-4 px-4;
 }
+
+.ql-editor p,
+.ql-editor ol,
+.ql-editor ul,
+.ql-editor pre,
+.ql-editor blockquote,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  padding: 5px 0px !important;
+  @apply leading-7;
+}
+
+.ql-editor ol li:not(.ql-direction-rtl),
+.ql-editor ul li:not(.ql-direction-rtl) {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

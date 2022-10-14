@@ -76,7 +76,9 @@ export default function Questions() {
           }}
           action={{
             title: "Injiza ibibazo",
-            onClick: () => {},
+            onClick: () => {
+              setshowQuestionModal(true);
+            },
           }}
           title="Nta bibazo biri mwizuzuma"
           subTitle="Isuzuma ushaka nabibazo rifite."
