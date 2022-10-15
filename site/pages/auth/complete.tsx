@@ -9,13 +9,15 @@ import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
 import { useAuth } from "../../context/authContext";
 import { useRouter } from "next/router";
 import AppFormField from "../../components/forms/AppFormField";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { firestore } from "../../config/firebase";
 
 export default function ForgotPassword() {
   const forgotSchema = Yup.object().shape({
     names: Yup.string().required("izina ryawe rirakenewe"),
   });
 
-  const { reloadAuth } = useAuth();
+  const { reloadAuth, user }: any = useAuth();
 
   const router = useRouter();
   const handleSubmit = (
@@ -26,7 +28,11 @@ export default function ForgotPassword() {
       .updateProfile({ displayName: names })
       .then(() => {
         reloadAuth();
-        setTimeout(() => {
+        return setDoc(doc(firestore, "users", user.id), {
+          username: names,
+          photo: "",
+          phone: user.phone,
+        }).then((e) => {
           setSubmitting(false);
           if (
             router.query.redirect_url &&
@@ -37,7 +43,7 @@ export default function ForgotPassword() {
             router.push(`/learn`);
           }
           resetForm();
-        }, 1000);
+        });
       })
       .catch((error) => {
         var errorMessage = error.response.data.message;

@@ -58,7 +58,7 @@ export default function Modal({
           <div
             className={`bg-gray-950 bg-white ${
               !hAuto && "max-h-[78vh] overflow-y-auto scrollbar"
-            }  ${
+            } xl:max-h-[78vh]  lg:max-h-[78vh]  ${
               size === "xl" && " overflow-y-scroll"
             } overflow-hidden relative`}
             style={{ padding: noPadding ? "0px" : "15px" }}

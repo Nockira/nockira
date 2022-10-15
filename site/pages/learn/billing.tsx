@@ -104,7 +104,7 @@ export default function Billing() {
                 <div className="flex justify-between items-center py-1">
                   <h4 className="text-sm ">Ifatabuguzi ryawe</h4>
                   <Link href="/learn/plans">
-                    <a className="text-primary text-sm cursor-pointer font-bold capitalize">
+                    <a className="text-primary pointer-events-none opacity-40 text-sm cursor-pointer font-bold capitalize">
                       hindura ifatabuguzi.
                     </a>
                   </Link>
@@ -117,7 +117,7 @@ export default function Billing() {
                       title: "gahunda",
                       subtitle:
                         billing.plan === "weekly"
-                          ? "icyumenweru"
+                          ? "icyumweru"
                           : billing.plan === "monthly"
                           ? "ukwezi"
                           : billing.plan === "2-month"
@@ -239,7 +239,7 @@ export default function Billing() {
                 </div>
               </div>
 
-              {billing.status === "active" && (
+              {/* {billing.status === "active" && (
                 <div className="card-footer">
                   <Button
                     loading={loadingCancel}
@@ -253,7 +253,7 @@ export default function Billing() {
                     hagarika ifatabuguzi
                   </Button>
                 </div>
-              )}
+              )} */}
               {billing.status === "expired" && (
                 <div className="card-footer">
                   <Button
@@ -379,6 +379,8 @@ function Payments() {
                               ? "text-primary"
                               : e.status === "failed"
                               ? "text-red-500"
+                              : e.status === "pending"
+                              ? "text-orange-500"
                               : ""
                           }`}
                         >

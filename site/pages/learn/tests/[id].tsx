@@ -10,6 +10,7 @@ import {
   Mic,
   Smartphone,
   Trash,
+  X,
 } from "react-feather";
 import Button from "../../../components/Button";
 import LearnLayout from "../../../components/LearnLayout";
@@ -437,7 +438,7 @@ function Quiz({
   setactiveQuestion,
   activeQuestion,
   answers,
-  completed,
+  completed = true,
   setcompleted,
   setloadingNext,
   setanswers,
@@ -455,6 +456,8 @@ function Quiz({
     };
   };
 
+  const [showAnswerMode, setshowAnswerMode] = useState(true);
+
   return (
     <div>
       <div className="relative">
@@ -467,50 +470,76 @@ function Quiz({
         )}
         <div className="pt-6">
           {completed ? (
-            <div className="flex py-8 flex-col justify-center items-center">
-              <img
-                width={150}
-                height={150}
-                src={
-                  loadMarks().percent < 70
-                    ? "/images/failed.svg"
-                    : "/images/test.svg"
-                }
-                alt=""
-              />
-              <h4 className="text-base mt-6">
-                {loadMarks().percent < 65
-                  ? "watsizwe subiramo"
-                  : "watsinze umwitozo"}
-              </h4>
-              <p className="max-w-xs my-2 text-center leading-7 text-sm font-semibold text-gray-500">
-                Urakoze gukora isuzuma bumenyi. kanga hasi aho kurisubiramo.
-              </p>
+            <Fragment>
+              {showAnswerMode && answers?.length ? (
+                <div>
+                  {quiz.questions.map((e, index) => {
+                    return (
+                      <Answer
+                        key={index}
+                        answer={answers.find((i) => i.id === e.id)}
+                        question={e}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="flex py-8 flex-col justify-center items-center">
+                  <img
+                    width={150}
+                    height={150}
+                    src={
+                      loadMarks().percent < 70
+                        ? "/images/failed.svg"
+                        : "/images/test.svg"
+                    }
+                    alt=""
+                  />
+                  <h4 className="text-base mt-6">
+                    {loadMarks().percent < 65
+                      ? "watsizwe subiramo"
+                      : "watsinze umwitozo"}
+                  </h4>
+                  <p className="max-w-xs my-2 text-center leading-7 text-sm font-semibold text-gray-500">
+                    Urakoze gukora isuzuma bumenyi. kanga hasi aho kurisubiramo.
+                  </p>
 
-              <div className="border-2 my-2 border-gray-200 font-bold text-gray-500 rounded-full p-3">
-                <span>{loadMarks().passed}</span>
-                <span>/</span>
-                <span>{loadMarks().total}</span>
-              </div>
-              <Button
-                onClick={() => {
-                  setactiveQuestion(1);
-                  setcompleted(false);
-                  setloadingNext(false);
-                  setTimer(240);
-                  setanswers(
-                    quiz.questions.map((e) => {
-                      return {
-                        id: e.id,
-                      };
-                    })
-                  );
-                }}
-                className="mt-2"
-              >
-                Subiramo
-              </Button>
-            </div>
+                  <div className="border-2 my-2 border-gray-200 font-bold text-gray-500 rounded-full p-3">
+                    <span>{loadMarks().passed}</span>
+                    <span>/</span>
+                    <span>{loadMarks().total}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Button
+                      onClick={() => {
+                        setactiveQuestion(1);
+                        setcompleted(false);
+                        setloadingNext(false);
+                        setTimer(240);
+                        setanswers(
+                          quiz.questions.map((e) => {
+                            return {
+                              id: e.id,
+                            };
+                          })
+                        );
+                      }}
+                      className="mt-2"
+                    >
+                      Subiramo
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setshowAnswerMode(true);
+                      }}
+                      className="mt-2 bg-orange-500 ml-3"
+                    >
+                      Reba ibisubizo
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </Fragment>
           ) : (
             <Fragment>
               <div className="overflow-y-auto  w-full relative bg-white sm:h[40vh]">
@@ -521,6 +550,53 @@ function Quiz({
             </Fragment>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function Answer({ question, answer }) {
+  console.log(answer);
+  return (
+    <div className="border-b border-l-2 text-sm leading-8 border-gray-200 last:border-b-0 p-4 first:pt-0">
+      <div className="flex items-center my-1 justify-between">
+        <h4>
+          <span>{question.position}) </span>
+          {question.question}
+        </h4>
+      </div>
+      {question.photo && (
+        <img
+          src={question.photo}
+          className="max-w-xs my-5 border border-gray-200 rounded-md h-52 bg-gray-100"
+          alt=""
+        />
+      )}
+
+      <div className="flex flex-col justify-start">
+        {question.options.map((i, index) => {
+          return (
+            <span
+              key={index}
+              className={`${
+                i === question.answer
+                  ? "text-green-500 font-bold "
+                  : i === answer.answer && answer.answer !== question.answer
+                  ? "text-red-500 "
+                  : "text-gray-500 font-semibold"
+              } text-sm flex items-center  py-3`}
+            >
+              {i}
+              <div className="ml-4">
+                {i === answer.answer && answer.answer === question.answer ? (
+                  <CheckCircle size={16} className="text-green-500" />
+                ) : i === answer.answer && answer.answer !== question.answer ? (
+                  <X size={16} className="text-red-500" />
+                ) : null}
+              </div>
+            </span>
+          );
+        })}
       </div>
     </div>
   );
@@ -546,11 +622,11 @@ function Question({ q, setanswers, answers }) {
     );
   };
 
-  const status = answers.find((e) => e.id === q.id)?.status;
+  const status = answers.find((e) => e?.id === q?.id)?.status;
 
   const [guesses, setGuesses] = useState(3);
 
-  return (
+  return q ? (
     <div>
       <div className="max-w-4xl px-4 mx-auto">
         <div className={` sm:py-4 py-4 pb-10`}>
@@ -614,7 +690,7 @@ function Question({ q, setanswers, answers }) {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
 const ShakePose = posed.div({

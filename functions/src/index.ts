@@ -12,17 +12,65 @@ Paypack.config({
 
 exports.makeSubscriptionPayment = functions.https.onCall(
   async (data, context) => {
+    console.log(data);
     if (context.auth && data.plan && data.phone) {
-      
+      if (context.auth && data.plan && data.phone) {
+        const getAmount = (plan: any) => {
+          return plan === "weekly"
+            ? 2000
+            : plan === "monthly"
+            ? 5000
+            : plan === "2-month"
+            ? 10000
+            : 100000;
+        };
+        const user = context.auth;
 
-      throw new functions.https.HttpsError(
-        e.message,
-        "The function must be called " + "while authenticated."
-      );
+        return Paypack.cashin({
+          number: data.phone,
+          amount: getAmount(data.plan),
+          environment: "production",
+        })
+          .then((e: any) => {
+            return admin
+              .firestore()
+              .collection("subscriptions")
+              .doc(user.uid)
+              .collection("payments")
+              .add({
+                method: data.method,
+                amount: getAmount(data.plan),
+                transactionRef: e?.data?.ref,
+                plan: data.plan,
+                status: "pending",
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                user: {
+                  id: user.uid,
+                  phone: user.token.phone_number,
+                  photo: user?.token.picture || "",
+                },
+              })
+              .then((doc) => {
+                return {
+                  paymentId: doc.id,
+                };
+              });
+          })
+          .catch((e: any) => {
+            console.log(e);
+            throw new functions.https.HttpsError("aborted", e.message);
+          });
+      } else {
+        throw new functions.https.HttpsError(
+          "failed-precondition",
+          "The function must be called " + "while authenticated."
+        );
+      }
     } else {
       throw new functions.https.HttpsError(
-        "failed-precondition",
-        "The function must be called " + "while authenticated."
+        "invalid-argument",
+        "The function must be called " + "while authenticated. or has no data"
       );
     }
   }
@@ -71,8 +119,7 @@ exports.paymentWebhook = functions.https.onRequest(
           plan: payment.plan,
           user: {
             id: payment.user.id,
-            phone: payment.user.phone_number,
-            names: payment.user.names,
+            phone: payment.user.phone,
           },
           payment: {
             method: payment.method,
@@ -100,39 +147,6 @@ exports.paymentWebhook = functions.https.onRequest(
     }
   }
 );
-
-exports.onSubscriptionUpdated = functions.firestore
-  .document("subscriptions/{subscriptionId}")
-  .onUpdate(async (change: any, context: any) => {
-    const newValue = change.after.data();
-    const prevValue = change.before.data();
-
-    const subscription: any = {};
-
-    if (newValue["status"] !== prevValue["status"]) {
-      if (newValue["status"] === "active") {
-        subscription["status"] = "active";
-        subscription["expire"] = new Date(
-          newValue["end"].toDate()
-        ).toLocaleDateString();
-      } else if (newValue["status"] === "expired") {
-        subscription["status"] = "expired";
-      } else {
-        subscription["status"] = newValue["status"];
-      }
-      return admin
-        .auth()
-        .getUser(context.params.subscriptionId)
-        .then(({ customClaims: oldClaims }) =>
-          admin.auth().setCustomUserClaims(context.params.subscriptionId, {
-            ...oldClaims,
-            subscription: subscription,
-          })
-        );
-    } else {
-      return;
-    }
-  });
 
 exports.MakeAdmin = functions.https.onRequest(async (request, response) => {
   try {

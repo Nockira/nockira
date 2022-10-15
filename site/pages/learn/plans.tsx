@@ -14,6 +14,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../context/authContext";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import Input from "../../components/Input";
 
 export default function Plans() {
   const [selectedPlan, setselectedPlan] = useState<any>();
@@ -205,7 +206,7 @@ function Pay({ plan, onClose }) {
                       ? router.query.redirect_url.toString()
                       : "/learn"
                   );
-                }, 4000);
+                }, 2000);
               }}
               className="mt-6"
             >
@@ -286,13 +287,18 @@ function Pay({ plan, onClose }) {
                   <span className="text-gray-500">Shyirmo nimreo</span>
                 </div>
 
-                <PhoneInput
+                {/* <PhoneInput
                   placeholder="07 xxx xxx xxx"
                   onChange={(e: any) => setphone(e)}
                   value={phone}
                   defaultCountry="RW"
                   autoComplete="tel"
                   className={` text-base placeholder:text-gray-400 font-semibold transition-all text-gray-600 bg-transparent border rounded px-4 outline-none py-[10px] letter focus:border-primary w-full`}
+                /> */}
+                <Input
+                  placeholder="07 xxx xxx xxx"
+                  onChange={(e: any) => setphone(e.target.value)}
+                  value={phone}
                 />
               </div>
               <Button

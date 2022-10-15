@@ -3,7 +3,7 @@ import {
   getIdTokenResult,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { auth, firestore } from "../config/firebase";
 import { AuthServices } from "../services/auth.service";
@@ -63,8 +63,17 @@ function useProvideAuth() {
         ? await getIdTokenResult(currentUser).then((res) => res.claims)
         : null;
 
-      if (claims?.subscription) {
-        const expire = new Date(claims?.subscription?.expired);
+      const subscription: any = await getDoc(
+        doc(firestore, "subscriptions", currentUser.uid)
+      ).then((e) => {
+        return {
+          id: e.id,
+          ...e.data(),
+        };
+      });
+
+      if (subscription.id) {
+        const expire = new Date(subscription?.end?.toDate());
         const now = new Date();
 
         if (expire < now) {
@@ -81,7 +90,7 @@ function useProvideAuth() {
         phone: currentUser.phoneNumber,
         photo: currentUser.photoURL,
         id: currentUser.uid,
-        subscription: claims?.subscription?.status,
+        subscription: subscription?.status,
         role: claims.role || "admin",
       };
       setUser(user);

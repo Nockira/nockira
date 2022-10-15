@@ -18,7 +18,7 @@ import {
 import { firestore } from "../config/firebase";
 import { useToast } from "../context/toastContext";
 
-export default function NewLessonModal({ onClose, reFetch, lesson }) {
+export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
   const schema = Yup.object().shape({
     name: Yup.string().required(),
     requirements: Yup.array(),

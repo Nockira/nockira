@@ -624,3 +624,15 @@ input[type="number"] {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+
+@media (max-width: 1023px) {
+  .lg\:max-h-\[78vh\] {
+    max-height: 78vh 9 !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .xl\:max-h-\[78vh\] {
+    max-height: 78vh 9 !important;
+  }
+}
