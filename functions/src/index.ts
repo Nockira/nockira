@@ -17,7 +17,7 @@ exports.makeSubscriptionPayment = functions.https.onCall(
       if (context.auth && data.plan && data.phone) {
         const getAmount = (plan: any) => {
           return plan === "weekly"
-            ? 100
+            ? 2000
             : plan === "monthly"
             ? 5000
             : plan === "2-month"
