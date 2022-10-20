@@ -3,6 +3,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -328,16 +330,19 @@ function Payments() {
   const { data, status }: any = useQuery(
     "user-payments",
     () =>
-      getDocs(collection(firestore, "subscriptions", user.id, "payments")).then(
-        ({ docs }) => {
-          return docs.map((e) => {
-            return {
-              id: e.id,
-              ...e.data(),
-            };
-          });
-        }
-      ),
+      getDocs(
+        query(
+          collection(firestore, "subscriptions", user.id, "payments"),
+          orderBy("createdAt", "desc")
+        )
+      ).then(({ docs }) => {
+        return docs.map((e) => {
+          return {
+            id: e.id,
+            ...e.data(),
+          };
+        });
+      }),
     {
       enabled: user !== undefined,
     }
@@ -368,6 +373,8 @@ function Payments() {
                             day: "2-digit",
                             month: "short",
                             year: "numeric",
+                            minute: "2-digit",
+                            hour: "2-digit",
                           }
                         )}
                       </td>

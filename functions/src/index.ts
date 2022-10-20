@@ -17,7 +17,7 @@ exports.makeSubscriptionPayment = functions.https.onCall(
       if (context.auth && data.plan && data.phone) {
         const getAmount = (plan: any) => {
           return plan === "weekly"
-            ? 2000
+            ? 100
             : plan === "monthly"
             ? 5000
             : plan === "2-month"
@@ -78,7 +78,8 @@ exports.makeSubscriptionPayment = functions.https.onCall(
 
 exports.paymentWebhook = functions.https.onRequest(
   async (req: any, res: any) => {
-    const refId = req.body.ref;
+    const refId = req?.body?.data?.ref;
+    const status = req?.body?.data?.status;
 
     if (refId) {
       const batch = admin.firestore().batch();
@@ -100,40 +101,51 @@ exports.paymentWebhook = functions.https.onRequest(
         });
 
       if (payment.id) {
-        const getEndDate = (plan: any) => {
-          const d = new Date();
-          return plan === "weekly"
-            ? new Date(d.setDate(d.getDate() + 7))
-            : plan === "monthly"
-            ? new Date(d.setMonth(d.getMonth() + 1))
-            : plan === "2-month"
-            ? new Date(d.setDate(d.getDate() + 60))
-            : new Date();
-        };
+        if (status === "successful") {
+          const getEndDate = (plan: any) => {
+            const d = new Date();
+            return plan === "weekly"
+              ? new Date(d.setDate(d.getDate() + 7))
+              : plan === "monthly"
+              ? new Date(d.setMonth(d.getMonth() + 1))
+              : plan === "2-month"
+              ? new Date(d.setDate(d.getDate() + 60))
+              : new Date();
+          };
 
-        batch.set(admin.firestore().doc(`/subscriptions/${payment.user.id}`), {
-          start: admin.firestore.Timestamp.fromDate(new Date()),
-          end: admin.firestore.Timestamp.fromDate(getEndDate(payment.plan)),
-          createdAt: admin.firestore.FieldValue.serverTimestamp(),
-          status: "active",
-          plan: payment.plan,
-          user: {
-            id: payment.user.id,
-            phone: payment.user.phone,
-          },
-          payment: {
-            method: payment.method,
-            id: payment.id,
-            amount: payment.amount,
-          },
-        });
+          batch.set(
+            admin.firestore().doc(`/subscriptions/${payment.user.id}`),
+            {
+              start: admin.firestore.Timestamp.fromDate(new Date()),
+              end: admin.firestore.Timestamp.fromDate(getEndDate(payment.plan)),
+              createdAt: admin.firestore.FieldValue.serverTimestamp(),
+              status: "active",
+              plan: payment.plan,
+              user: {
+                id: payment.user.id,
+                phone: payment.user.phone,
+              },
+              payment: {
+                method: payment.method,
+                id: payment.id,
+                amount: payment.amount,
+              },
+            }
+          );
+        }
+
         batch.update(
           admin
             .firestore()
             .doc(`/subscriptions/${payment.user.id}/payments/${payment.id}`),
           {
             updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-            status: "paid",
+            status:
+              status === "successful"
+                ? "paid"
+                : status === "failed"
+                ? "failed"
+                : status,
           }
         );
 

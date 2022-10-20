@@ -37,28 +37,27 @@ export default function Plans() {
             name: "icyumweru",
             duration: "weekly",
             features: [
-              "ukwezi 1",
-              " Ubufasha kuri telefoni",
-              "Amasomo n'amasuzumabumenyi yose",
-            ],
-          },
-          {
-            name: "ukwezi",
-            duration: "monthly",
-            price: 5000,
-            features: [
               "icyumweru",
               " Ubufasha kuri telefoni",
               "Amasomo n'amasuzumabumenyi yose",
             ],
           },
-
+          {
+            name: "ukwezi 1",
+            duration: "monthly",
+            price: 5000,
+            features: [
+              "ukweizi",
+              " Ubufasha kuri telefoni",
+              "Amasomo n'amasuzumabumenyi yose",
+            ],
+          },
           {
             price: 10000,
-            name: "amezi 3",
+            name: "amezi 2",
             duration: "2-month",
             features: [
-              "Iminsi 10",
+              "amezi abiri",
               " Ubufasha kuri telefoni",
               "Amasomo n'amasuzumabumenyi yose",
             ],

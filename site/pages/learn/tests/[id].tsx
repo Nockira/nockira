@@ -456,7 +456,7 @@ function Quiz({
     };
   };
 
-  const [showAnswerMode, setshowAnswerMode] = useState(true);
+  const [showAnswerMode, setshowAnswerMode] = useState(false);
 
   return (
     <div>

@@ -59,7 +59,7 @@ export default function Navbar() {
               <Link href={user ? `/learn` : `/`}>
                 <a className="mr-3 sm:mr-0">
                   <img
-                    className="h-[25px] w-[90px]"
+                    className="h-[23px] w-[90px]"
                     src="/images/logo.png"
                     alt=""
                   />

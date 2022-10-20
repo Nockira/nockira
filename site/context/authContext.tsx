@@ -58,43 +58,46 @@ function useProvideAuth() {
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
   const setCurrentUser = async (currentUser: any) => {
+    setLoading(true);
+
     if (currentUser && currentUser.uid) {
       const claims: any = currentUser
         ? await getIdTokenResult(currentUser).then((res) => res.claims)
         : null;
 
-      const subscription: any = await getDoc(
-        doc(firestore, "subscriptions", currentUser.uid)
-      ).then((e) => {
-        return {
-          id: e.id,
-          ...e.data(),
-        };
-      });
+      await getDoc(doc(firestore, "subscriptions", currentUser.uid)).then(
+        (e) => {
+          const subscription: any = {
+            id: e.exists() ? e.id : undefined,
+            ...e.data(),
+          };
+          if (subscription.id) {
+            const expire = new Date(subscription?.end?.toDate());
+            const now = new Date();
 
-      if (subscription.id) {
-        const expire = new Date(subscription?.end?.toDate());
-        const now = new Date();
-
-        if (expire < now) {
-          handleCancelSubscription({ userId: auth.currentUser.uid }).then(
-            (e) => {
-              reloadAuth();
+            if (expire < now) {
+              handleCancelSubscription({ userId: auth.currentUser.uid }).then(
+                (e) => {
+                  reloadAuth();
+                }
+              );
             }
-          );
-        }
-      }
+          }
 
-      const user = {
-        username: currentUser.displayName,
-        phone: currentUser.phoneNumber,
-        photo: currentUser.photoURL,
-        id: currentUser.uid,
-        subscription: subscription?.status,
-        role: claims.role || "admin",
-      };
-      setUser(user);
-      setLoading(false);
+          const user = {
+            username: currentUser.displayName,
+            phone: currentUser.phoneNumber,
+            photo: currentUser.photoURL,
+            id: currentUser.uid,
+            subscription: subscription?.status,
+            role: claims.role,
+          };
+          setUser(user);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        }
+      );
     } else {
       setLoading(false);
     }
