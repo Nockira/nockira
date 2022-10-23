@@ -46,7 +46,7 @@ export default function Contact() {
       <NextSeo title={"Twandikire"} />{" "}
       <div className="mt-0 mb-16">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-3 gap-4">
+          {/* <div className="grid grid-cols-3 gap-4">
             <div className="hover:shadow-lg cursor-pointer group transition-all">
               <div className="relative overflow-hidden">
                 <img
@@ -79,7 +79,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex justify-center md:mt-5 mt-10 text-center flex-col mb-5">
             <h3 className="font-bold text-xl mb-2 md:text-lg text-gray-900">

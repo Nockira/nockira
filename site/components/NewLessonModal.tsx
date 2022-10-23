@@ -40,6 +40,7 @@ export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
     const q = lesson
       ? updateDoc(doc(firestore, "lessons", lesson.id), data)
       : addDoc(collection(firestore, "lessons"), {
+          ...data,
           createdAt: serverTimestamp(),
           counts: {
             sections: 0,

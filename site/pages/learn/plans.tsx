@@ -302,7 +302,15 @@ function Pay({ plan, onClose }) {
               </div>
               <Button
                 onClick={() => {
-                  handlePayment();
+                  if (
+                    phone &&
+                    phone.length === 10 &&
+                    phone.split("").slice(0, 2).join("") === "07"
+                  ) {
+                    handlePayment();
+                  } else {
+                    setpaymentError("nimero yawe yanditse nabi.");
+                  }
                 }}
                 loading={loadingPayment}
                 disabled={!phone}

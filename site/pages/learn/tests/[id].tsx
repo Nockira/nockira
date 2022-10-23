@@ -348,7 +348,7 @@ function TestModal({ onClose, id }: any) {
     setactiveQuestion(activeQuestion - 1);
   };
 
-  const [timer, setTimer] = React.useState(240);
+  const [timer, setTimer] = React.useState(1200);
   return (
     <Modal
       hAuto
@@ -515,7 +515,7 @@ function Quiz({
                         setactiveQuestion(1);
                         setcompleted(false);
                         setloadingNext(false);
-                        setTimer(240);
+                        setTimer(1200);
                         setanswers(
                           quiz.questions.map((e) => {
                             return {

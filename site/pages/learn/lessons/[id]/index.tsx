@@ -202,7 +202,7 @@ export default function Lesson() {
                       </h4>
                     </div>
                     <div className="grid sm:grid-cols-1 grid-cols-2 gap-0">
-                      {lesson.archivements.map((i, index) => {
+                      {lesson?.archivements?.map((i, index) => {
                         return (
                           <div key={index} className="my-1 flex items-start">
                             <span className="mr-3 mt-3">
@@ -226,7 +226,7 @@ export default function Lesson() {
                       </h4>
                     </div>
                     <div className="grid sm:grid-cols-1 grid-cols-2 gap-0">
-                      {lesson.requirements.map((i, index) => {
+                      {lesson?.requirements?.map((i, index) => {
                         return (
                           <div key={index} className="my-1 flex items-start">
                             <span className="mr-3 mt-3">

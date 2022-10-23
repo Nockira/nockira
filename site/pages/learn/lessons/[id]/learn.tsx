@@ -13,7 +13,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { useAuth } from "../../../../context/authContext";
 import NoContent from "../../../../components/NoContent";
 import { useRouter } from "next/router";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { useQuery } from "react-query";
 import { firestore } from "../../../../config/firebase";
 import Loader from "../../../../components/Loader";
@@ -27,14 +27,18 @@ export default function Learn() {
   const { data, status }: any = useQuery(
     ["lessons", id, "sections"],
     () =>
-      getDocs(query(collection(firestore, "lessons", id, "sections"))).then(
-        ({ docs }) =>
-          docs.map((e) => {
-            return {
-              id: e.id,
-              ...e.data(),
-            };
-          })
+      getDocs(
+        query(
+          collection(firestore, "lessons", id, "sections"),
+          orderBy("position", "asc")
+        )
+      ).then(({ docs }) =>
+        docs.map((e) => {
+          return {
+            id: e.id,
+            ...e.data(),
+          };
+        })
       ),
     {
       enabled: user !== undefined && id !== undefined,
@@ -46,9 +50,11 @@ export default function Learn() {
   const sec: any = data ? data[activeSection] : undefined;
 
   const handleNext = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setactiveSection(activeSection + 1);
   };
   const handlePrev = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setactiveSection(activeSection - 1);
   };
 

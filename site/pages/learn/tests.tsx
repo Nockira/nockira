@@ -1,4 +1,4 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { useState, Fragment } from "react";
@@ -60,7 +60,9 @@ function All() {
   const { data, status } = useQuery(
     "tests",
     () =>
-      getDocs(query(collection(firestore, "tests"))).then(({ docs }) =>
+      getDocs(
+        query(collection(firestore, "tests"), orderBy("createdAt", "asc"))
+      ).then(({ docs }) =>
         docs.map((e) => {
           return {
             id: e.id,
@@ -160,14 +162,18 @@ function Done({ setselected }) {
   const { data, status } = useQuery(
     "user-tests",
     () =>
-      getDocs(query(collection(firestore, "users", user.id, "tests"))).then(
-        ({ docs }) =>
-          docs.map((e) => {
-            return {
-              id: e.id,
-              ...e.data().test,
-            };
-          })
+      getDocs(
+        query(
+          collection(firestore, "users", user.id, "tests"),
+          orderBy("createdAt", "desc")
+        )
+      ).then(({ docs }) =>
+        docs.map((e) => {
+          return {
+            id: e.id,
+            ...e.data().test,
+          };
+        })
       ),
     {
       enabled: user !== undefined,

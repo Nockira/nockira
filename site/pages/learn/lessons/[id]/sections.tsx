@@ -76,7 +76,7 @@ export default function Sections() {
             );
           }}
           action={{
-            title: "Injiza amasomo",
+            title: "Injiza ibice",
             onClick: () => {},
           }}
           title="Nta Bice biri muwisomo"
@@ -195,7 +195,7 @@ function SectionModal({ onClose, section, sections }: any) {
   const handleSubmit = (values: any) => {
     const data = {
       name: values.name,
-      position: values.position,
+      position: Number(values.position),
       content: values.content,
       updatedAt: serverTimestamp(),
     };
