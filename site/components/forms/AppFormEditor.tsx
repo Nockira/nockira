@@ -8,10 +8,22 @@ import { handleUpload } from "../../utils/handleUpload";
 import shortid from "shortid";
 import Loader from "../Loader";
 import dynamic from "next/dynamic";
-const Editor: any = dynamic(() => import("react-quill"), { ssr: false });
+// const Editor: any = dynamic(() => import("react-quill"), { ssr: false });
+const Editor = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill");
+
+    return ({ forwardedRef, ...props }: any) => (
+      <RQ ref={forwardedRef} {...props} />
+    );
+  },
+  {
+    ssr: false,
+  }
+);
 
 export default function AppFormEditor({ name }) {
-  const quillRef: any = useRef();
+  const quillRef: any = useRef(false);
   const toast: any = useToast();
   const imageHandler = (e) => {
     const editor = quillRef.current.getEditor();
@@ -113,7 +125,7 @@ export default function AppFormEditor({ name }) {
       <Editor
         theme="snow"
         modules={modules}
-        ref={quillRef}
+        forwardedRef={quillRef}
         value={values[name]}
         onChange={(e) => {
           setFieldValue(name, e);

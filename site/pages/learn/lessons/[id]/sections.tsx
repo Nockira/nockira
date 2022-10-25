@@ -77,10 +77,12 @@ export default function Sections() {
           }}
           action={{
             title: "Injiza ibice",
-            onClick: () => {},
+            onClick: () => {
+              setshowSectionModal(true);
+            },
           }}
           title="Nta Bice biri muwisomo"
-          subTitle="Isomo ushaka nabice rifite."
+          subTitle="Isomo ushaka ntabice rifite."
         />
       ) : null}
       {status === "success" && sections?.length ? (
