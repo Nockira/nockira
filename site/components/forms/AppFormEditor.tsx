@@ -9,10 +9,9 @@ import shortid from "shortid";
 import Loader from "../Loader";
 import dynamic from "next/dynamic";
 // const Editor: any = dynamic(() => import("react-quill"), { ssr: false });
-const Editor = dynamic(
+const Editor: any = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill");
-
     return ({ forwardedRef, ...props }: any) => (
       <RQ ref={forwardedRef} {...props} />
     );
@@ -21,6 +20,7 @@ const Editor = dynamic(
     ssr: false,
   }
 );
+Editor.displayName = "MyComponent";
 
 export default function AppFormEditor({ name }) {
   const quillRef: any = useRef(false);

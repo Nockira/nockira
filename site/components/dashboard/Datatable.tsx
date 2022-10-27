@@ -62,8 +62,8 @@ export default function DataTable({
       collection(firestore, name),
       ...subQs,
       ...filters,
-      limit(10)
-      // orderBy("createdAt", "desc")
+      limit(20),
+      orderBy("createdAt", "desc")
     );
 
     const ordersQuery = getDocs(q);

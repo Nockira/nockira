@@ -71,7 +71,7 @@ function useProvideAuth() {
             id: e.exists() ? e.id : undefined,
             ...e.data(),
           };
-          if (subscription.id) {
+          if (subscription.id && subscription.status === "active") {
             const expire = new Date(subscription?.end?.toDate());
             const now = new Date();
 

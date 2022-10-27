@@ -139,7 +139,7 @@ export default function Index() {
               {data.tests.length && (
                 <div className="flex sm:flex-col sm:items-start items-center justify-between px-4 py-3">
                   <div className="sm:mb-3">
-                    <h4 className="text-sm mb-2">Urabyunva ibingibi.</h4>
+                    <h4 className="text-sm mb-2">Urabyumva ibingibi?</h4>
                     <p className="text-sm font-semibold text-gray-500">
                       Fata isuzuma bumenyi kugirango usuzume aho ugeze.
                     </p>

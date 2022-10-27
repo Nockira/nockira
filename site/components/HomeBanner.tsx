@@ -34,13 +34,15 @@ export default function HomeBanner() {
           setloading(false);
           toast.show({ title: error.message, danger: true });
         });
+    } else {
+      toast.show({ title: "nimero yawe nago yanditse neza", danger: true });
     }
   };
   return (
     <div className="px-3 sm:px-0 max-w-5xl mx-auto ">
       <div className="home-banner sm:rounded-none g-green-200 sm:my-0 py-14 rounded-md text-center my-6 flex flex-col items-center justify-center px-5">
         <h4 className="text-3xl max-w-3xl sm:text-xl leading-[50px] text-gray-100 mx-auto font-bold capitalize">
-          Uburyo bwa mbere bworoshye bwo kwigira provisoire mu Rwanda!
+          Urubuga rwambere mu rwanda rufasha abantu bose kubona Provisoire
         </h4>
         <p className="max-w-2xl sm:line-clamp-2 mx-auto my-5 leading-7 text-[15px] font-semibold text-gray-200">
           Nockira ni urubuga rwashyiriweho gufasha abanyarwanda Bose kumenya
@@ -48,7 +50,10 @@ export default function HomeBanner() {
         </p>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
           className="bg-white px-1 py-1 mt-5 justify-between w-full max-w-md rounded-[4px] flex items-center"
         >
           <PhoneInput

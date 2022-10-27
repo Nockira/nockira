@@ -14,7 +14,11 @@ import { useToast } from "../../context/toastContext";
 import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
 export default function Login() {
   const loginSchema = Yup.object().shape({
-    phone: Yup.string().required(),
+    phone: Yup.string()
+      .required()
+      .matches(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im, {
+        message: "nimero yawe yanditse nabi",
+      }),
   });
 
   const router = useRouter();

@@ -21,10 +21,6 @@ export default function Index() {
     {
       name: "joined",
     },
-    {
-      name: "subscription",
-      isStatus: true,
-    },
   ];
 
   const [loadingDisable, setloadingDelete] = useState(false);
@@ -53,7 +49,7 @@ export default function Index() {
                 month: "short",
                 year: "numeric",
               }) || "---",
-            subscription: e.subscription?.status || "---",
+
             all: e,
           };
         }}

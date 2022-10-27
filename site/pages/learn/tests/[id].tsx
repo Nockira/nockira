@@ -501,7 +501,7 @@ function Quiz({
                       : "watsinze umwitozo"}
                   </h4>
                   <p className="max-w-xs my-2 text-center leading-7 text-sm font-semibold text-gray-500">
-                    Urakoze gukora isuzuma bumenyi. kanga hasi aho kurisubiramo.
+                    Urakoze gukora isuzuma bumenyi. kana hasi aho kurisubiramo.
                   </p>
 
                   <div className="border-2 my-2 border-gray-200 font-bold text-gray-500 rounded-full p-3">

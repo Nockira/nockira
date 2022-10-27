@@ -9,6 +9,7 @@ function SubmitButton({ text, children, ...other }: any) {
   return (
     <Button
       loading={isSubmitting}
+      type="submit"
       {...other}
       onClick={() => {
         console.log(errors);

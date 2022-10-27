@@ -104,7 +104,7 @@ export default function Contact() {
                             Imyirondoro yacu.
                           </h4>
                           <p className="text-white text-sm">
-                            Reka tumenye niba haricyo utekereza mubyo
+                            Reka tumenye niba hari icyo utekereza mu byo
                             utwandikira.
                           </p>
                         </div>
@@ -115,7 +115,7 @@ export default function Contact() {
                               className="flex items-center text-sm my-4 font-semibold"
                             >
                               <Phone size={15} className="mr-3" />
-                              +250 788 701 837
+                              +250 789 117 171
                             </a>
                           </li>
                           <li>
@@ -230,7 +230,7 @@ export default function Contact() {
                         </div>
                         <div>
                           <div className="flex mt-3 mb-4">
-                            <SubmitButton>send message</SubmitButton>
+                            <SubmitButton>Ohereza ubutumwa</SubmitButton>
                           </div>
                         </div>
                       </AppForm>

@@ -16,9 +16,9 @@ export default function Footer() {
     <footer
       className={`${
         router.asPath.split("/").includes("learn") && "hidden"
-      } border-t mt-0 bg-white border-gray-200`}
+      } border-t mt-0 bg-gray-100 border-gray-200`}
     >
-      <div className={` border-gray-200 border-opacity-60`}>
+      <div className={` border-gray-300  border-opacity-60`}>
         <div className="py-4 sm:flex-col mx-auto px-3  max-w-5xl  flex justify-between items-center">
           <p className="text-sm text-gray-700 leading-7 font-semibold sm:text-center">
             Copyright © 2022 Nockira. All Rights Reserved.

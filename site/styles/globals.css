@@ -636,3 +636,7 @@ input[type="number"] {
     max-height: 78vh 9 !important;
   }
 }
+
+._1yCVn {
+  z-index: 1000 !important;
+}

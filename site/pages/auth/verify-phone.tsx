@@ -97,12 +97,15 @@ export default function VerifyPhone() {
 }
 
 function CodeInput() {
-  const { setFieldValue, values }: any = useFormikContext();
+  const { setFieldValue, values, submitForm }: any = useFormikContext();
   return (
     <div className="form-group mb-2 ">
       <div className="label capitalize mb-2">Shyiramo code</div>
       <div className="mt-2">
         <ReactCodeInput
+          onComplete={() => {
+            submitForm();
+          }}
           onChange={(e) => {
             setFieldValue("code", e);
           }}

@@ -9,7 +9,7 @@ import AppFormPhoneNumber from "../../components/forms/AppFormPhoneNumber";
 import { useAuth } from "../../context/authContext";
 import { useRouter } from "next/router";
 import AppFormField from "../../components/forms/AppFormField";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../config/firebase";
 
 export default function ForgotPassword() {
@@ -32,6 +32,7 @@ export default function ForgotPassword() {
           username: names,
           photo: "",
           phone: user.phone,
+          createdAt: serverTimestamp(),
         }).then((e) => {
           setSubmitting(false);
           if (

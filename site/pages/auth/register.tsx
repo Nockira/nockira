@@ -11,7 +11,11 @@ import { AuthServices } from "../../services/auth.service";
 
 export default function SignUp() {
   const registerSchema = Yup.object().shape({
-    phone: Yup.string().required(),
+    phone: Yup.string()
+      .required()
+      .matches(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im, {
+        message: "nimero yawe yanditse nabi",
+      }),
   });
 
   const router = useRouter();

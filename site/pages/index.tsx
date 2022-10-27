@@ -1,10 +1,21 @@
 import { NextSeo } from "next-seo";
 import Link from "next/link";
-import Router from "next/router";
-import React, { Fragment } from "react";
+import Router, { useRouter } from "next/router";
+import React, { Fragment, useEffect } from "react";
 import HomeBanner from "../components/HomeBanner";
+import { useAuth } from "../context/authContext";
 
 export default function Home() {
+  const router = useRouter();
+
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (user && !loading) {
+      router.push("/learn");
+    }
+  }, [user, loading]);
+
   return (
     <Fragment>
       <NextSeo

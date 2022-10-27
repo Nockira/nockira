@@ -6,8 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useState } from "react";
 import { ToastProvider } from "../context/toastContext";
 import { AuthProvider } from "../context/authContext";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { WhatsAppWidget } from "react-whatsapp-widget";
+import "react-whatsapp-widget/dist/index.css";
 declare global {
   interface Window {
     FB: any;
@@ -31,8 +31,14 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Nockira</title>
       </Head>
+      <WhatsAppWidget
+        sendButton="Ohereza"
+        replyTimeText="Tubasubizi muminota mike?"
+        companyName="Nockira"
+        message="Mwiriwe, Twafasha iki?"
+        phoneNumber="+250789117171"
+      />
       <AuthProvider>
-          
         <ToastProvider>
           <Layout>
             <Toaster position="bottom-right" reverseOrder={false} />
@@ -45,4 +51,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-

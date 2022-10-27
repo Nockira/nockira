@@ -14,7 +14,18 @@ const AppForm = ({
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {() => <>{children}</>}
+        {(e) => {
+          return (
+            <form
+              onSubmit={(i) => {
+                i.preventDefault();
+                e.submitForm();
+              }}
+            >
+              {children}
+            </form>
+          );
+        }}
       </Formik>
     </Fragment>
   );

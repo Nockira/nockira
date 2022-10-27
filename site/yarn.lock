@@ -3392,6 +3392,11 @@ react-hot-toast@^2.2.0:
   dependencies:
     goober "^2.1.1"
 
+react-icons@^4.4.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.6.0.tgz#f83eda179af5d02c047449a20b702c858653d397"
+  integrity sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -3479,6 +3484,13 @@ react-verification-code-input@^1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/react-verification-code-input/-/react-verification-code-input-1.2.9.tgz#16051396f0c75752aab0cd9f37cb7be7084b98d0"
   integrity sha512-Fg0B3SGGRoZtZFiQ/8FGSK5MQby9k5ssIUupPLvb8/U++Yxvc0T8ps/7CClLnvN+wowS5oL8xS7vqUTR9fRH6Q==
+
+react-whatsapp-widget@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-whatsapp-widget/-/react-whatsapp-widget-2.1.0.tgz#e4d56ad744c35e3536f673ee84c62a5bb55df9a4"
+  integrity sha512-ilrA0axcs/h0xYZj2CtVoOt9DCFqtGpkFXm22vvht0+tw8tbF3lGIkO0+AVyFpgGa7suhO8Ss7dlm9D+9yzpHg==
+  dependencies:
+    react-icons "^4.4.0"
 
 react@18.1.0:
   version "18.1.0"
