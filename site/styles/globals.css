@@ -148,6 +148,15 @@ h6 {
   margin-bottom: 10px;
   @apply text-gray-500 text-sm leading-8;
 }
+.markdown strong {
+  @apply text-gray-900 font-bold;
+}
+.markdown img {
+  @apply mb-6;
+}
+.markdown span {
+  @apply leading-9;
+}
 .markdown blockquote {
   @apply bg-gray-100 py-4 px-4 border-l-4 rounded-l-md overflow-hidden border-gray-300 my-4;
 }

@@ -86,7 +86,7 @@ export default function Lesson() {
   };
   const [starting, setstarting] = useState(false);
   const handleStart = async () => {
-    if (user.subscription !== "active") {
+    if (user.subscription !== "active" && lesson?.free !== true) {
       router.push(`/learn/plans?redirect_url=${router.asPath}`);
     } else {
       setstarting(true);
@@ -146,13 +146,22 @@ export default function Lesson() {
           <div className="max-w-7xl px-3 mx-auto  md:my-5 my-2">
             <div className=" ">
               <div className="col-span-2">
-                <div className="mb-6 border-l-2 border-l-primary px-3">
-                  <h4 className="text-base md:text-xl sm:text-[18px]">
-                    {lesson.name}
-                  </h4>
-                  <p className="font-semibold text-sm my-2 max-w-xl leading-7 text-gray-500">
-                    {lesson.desc}
-                  </p>
+                <div className="mb-6 flex items-center justify-between border-l-2 border-l-primary px-3">
+                  <div>
+                    <h4 className="text-base md:text-xl sm:text-[18px]">
+                      {lesson.name}
+                    </h4>
+                    <p className="font-semibold text-sm my-2 max-w-xl leading-7 text-gray-500">
+                      {lesson.desc}
+                    </p>
+                  </div>
+                  {lesson.free && (
+                    <span
+                      className={`text-primary bg-green-100 font-semibold capitalize text-sm px-4 py-[6px] rounded-full`}
+                    >
+                      Ni ubuntu
+                    </span>
+                  )}
                 </div>
 
                 {/* <div className="sm:grid sm:grid-cols-2 sm:mt-8 sm:gap-4 flex flex-wrap sm:justify-start justify-between items-center my-6">

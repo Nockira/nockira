@@ -94,6 +94,7 @@ function All({}) {
                   name: e.name,
                   lesson: "police",
                   desc: e.desc,
+                  free: e.free,
                   createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
                     "en-US",
                     {
@@ -190,6 +191,7 @@ function Done({ setselected }) {
                   name: e.name,
                   lesson: "police",
                   desc: e.desc,
+                  free: e.free,
                   createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
                     "en-US",
                     {

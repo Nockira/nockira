@@ -1,4 +1,11 @@
-import { collection, getDoc, getDocs, limit, query } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -28,8 +35,20 @@ export default function Index() {
         getDocs(
           query(collection(firestore, "users", user.id, "lessons"), limit(1))
         ),
-        getDocs(query(collection(firestore, "tests"), limit(6))),
-        getDocs(query(collection(firestore, "lessons"), limit(6))),
+        getDocs(
+          query(
+            collection(firestore, "tests"),
+            orderBy("createdAt", "asc"),
+            limit(6)
+          )
+        ),
+        getDocs(
+          query(
+            collection(firestore, "lessons"),
+            orderBy("createdAt", "asc"),
+            limit(6)
+          )
+        ),
       ]).then(([lastLessons, tests, lessons]) => {
         return {
           lastLesson: lastLessons.empty
@@ -207,6 +226,7 @@ export default function Index() {
                         id: e.id,
                         name: e.name,
                         lesson: "police",
+                        free: e.free,
                         createdAt: new Date(
                           e.createdAt.toDate()
                         ).toLocaleDateString("en-US", {
@@ -244,6 +264,7 @@ export default function Index() {
                         key={index}
                         item={{
                           id: e.id,
+                          free: e.free,
                           name: e.name,
                           lesson: "police",
                           desc: e.desc,

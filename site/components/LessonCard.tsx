@@ -23,6 +23,15 @@ export default function LessonCard({ item }) {
             <p className="text-sm font-semibold text-gray-500 leading-7 line-clamp-2 mt-4">
               {item.desc}
             </p>
+            {item.free && (
+              <div className="flex">
+                <span
+                  className={`text-primary mt-4 block bg-green-100 font-semibold capitalize text-xs px-3 py-[4px] rounded-full`}
+                >
+                  Ni ubuntu
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </Link>

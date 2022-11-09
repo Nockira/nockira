@@ -43,44 +43,12 @@ export default function Contact() {
 
   return (
     <div className="lg:px-3 mb-10 pt-4">
-      <NextSeo title={"Twandikire"} />{" "}
+      <NextSeo
+        title={"Twandikire"}
+        description="Reka tumenye niba haricyo utekereza mubyo utwandikira."
+      />{" "}
       <div className="mt-0 mb-16">
         <div className="max-w-5xl mx-auto">
-          {/* <div className="grid grid-cols-3 gap-4">
-            <div className="hover:shadow-lg cursor-pointer group transition-all">
-              <div className="relative overflow-hidden">
-                <img
-                  className="w-full"
-                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-                  alt=""
-                />
-                <div className="absolute flex justify-end px-3 py-3 bg-white border-t border-b border-t-gray-200 w-full group-hover:bottom-0 transition-all -bottom-7">
-                  <a href="">
-                    <Shuffle size={16} />
-                  </a>
-                </div>
-              </div>
-              <div>
-                <div className="flex py-3 items-center justify-center flex-col">
-                  <h4>Quisque vitinis pretum</h4>
-                  <span className="my-2">Marketplace</span>
-                  <h6 className="text-red-500">$269.00</h6>
-                </div>
-                <div className="px-3 hidden group-hover:block transition-all">
-                  <p className="text-sm  text-center leading-7 font-semibold text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore{" "}
-                  </p>
-                  <div className="flex my-4 items-center justify-between">
-                    <Heart size={16} />
-                    <Button>Add Cart</Button>
-                    <Search size={16} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <div className="flex justify-center md:mt-5 mt-10 text-center flex-col mb-5">
             <h3 className="font-bold text-xl mb-2 md:text-lg text-gray-900">
               Twandikire

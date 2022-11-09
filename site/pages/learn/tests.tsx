@@ -5,7 +5,6 @@ import React, { useState, Fragment } from "react";
 import { Plus } from "react-feather";
 import { useQuery, useQueryClient } from "react-query";
 import Button from "../../components/Button";
-import LearnLayout from "../../components/LearnLayout";
 import Loader from "../../components/Loader";
 import NewTestModal from "../../components/NewTestModal";
 import NoContent from "../../components/NoContent";
@@ -91,6 +90,7 @@ function All() {
                 key={index}
                 item={{
                   id: e.id,
+                  free: e.free,
                   name: e.name,
                   lesson: "police",
                   createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
@@ -192,6 +192,7 @@ function Done({ setselected }) {
                   id: e.id,
                   name: e.name,
                   lesson: "police",
+                  free: e.free,
                   createdAt: new Date(e.createdAt.toDate()).toLocaleDateString(
                     "en-US",
                     {

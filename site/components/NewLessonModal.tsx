@@ -17,6 +17,8 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import { useToast } from "../context/toastContext";
+import SwitchItem from "./SwitchItem";
+import { useFormikContext } from "formik";
 
 export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
   const schema = Yup.object().shape({
@@ -36,6 +38,7 @@ export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
       archivements: values.archivements,
       desc: values.desc,
       updatedAt: serverTimestamp(),
+      free: values.free,
     };
     const q = lesson
       ? updateDoc(doc(firestore, "lessons", lesson.id), data)
@@ -65,6 +68,7 @@ export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
         requirements: lesson?.requirements || [],
         archivements: lesson?.archivements || [],
         desc: lesson?.desc || "",
+        free: lesson?.free || false,
       }}
       validationSchema={schema}
     >
@@ -97,6 +101,7 @@ export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
                 placeholder="Shyiramo andi makuru kw' isuzuma"
                 label="amakuru"
               />
+              <Free />
             </div>
           );
         }}
@@ -112,5 +117,19 @@ export default function NewLessonModal({ onClose, reFetch, lesson }: any) {
         }}
       />
     </AppForm>
+  );
+}
+
+function Free() {
+  const { values, setFieldValue }: any = useFormikContext();
+  return (
+    <SwitchItem
+      title="isomo n' ubuntu"
+      subtitle="iri suzuma bumenyi n' ubuntu"
+      checked={values["free"]}
+      onChange={() => {
+        setFieldValue("free", !values["free"]);
+      }}
+    />
   );
 }

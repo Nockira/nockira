@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <WhatsAppWidget
         sendButton="Ohereza"
-        replyTimeText="Tubasubizi muminota mike?"
+        replyTimeText="Tubasubiza muminota mike?"
         companyName="Nockira"
         message="Mwiriwe, Twafasha iki?"
         phoneNumber="+250789117171"

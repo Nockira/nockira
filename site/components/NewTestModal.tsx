@@ -17,6 +17,8 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import { useToast } from "../context/toastContext";
+import SwitchItem from "./SwitchItem";
+import { useFormikContext } from "formik";
 
 export default function NewTestModal({ onClose, reFetch, test }: any) {
   const schema = Yup.object().shape({
@@ -30,6 +32,7 @@ export default function NewTestModal({ onClose, reFetch, test }: any) {
       name: values.name,
       instructions: values.instructions,
       desc: values.desc,
+      free: values.free,
       updatedAt: serverTimestamp(),
     };
     const q = test
@@ -59,6 +62,7 @@ export default function NewTestModal({ onClose, reFetch, test }: any) {
         name: test?.name || "",
         instructions: test?.instructions || [],
         desc: test?.desc || "",
+        free: test?.free || false,
       }}
       validationSchema={schema}
     >
@@ -86,6 +90,7 @@ export default function NewTestModal({ onClose, reFetch, test }: any) {
                 placeholder="Shyiramo andi makuru kw' isuzuma"
                 label="amakuru"
               />
+              <Free />
             </div>
           );
         }}
@@ -101,5 +106,18 @@ export default function NewTestModal({ onClose, reFetch, test }: any) {
         }}
       />
     </AppForm>
+  );
+}
+function Free() {
+  const { values, setFieldValue }: any = useFormikContext();
+  return (
+    <SwitchItem
+      title="isuzumabumenyi n' ubuntu"
+      subtitle="iri suzuma bumenyi n' ubuntu"
+      checked={values["free"]}
+      onChange={() => {
+        setFieldValue("free", !values["free"]);
+      }}
+    />
   );
 }
