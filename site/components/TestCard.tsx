@@ -15,7 +15,7 @@ export default function TestCard({ item }) {
               {item?.counts?.questions ? (
                 <Fragment>
                   <div className="mx-3 bg-gray-400 h-[6px] w-[6px] rounded-full" />
-                  <p>ibibazo {item?.counts.questions || 0} </p>
+                  <p>ibibazo {"20"} </p>
                 </Fragment>
               ) : null}
             </div>

@@ -20,7 +20,7 @@ exports.makeSubscriptionPayment = functions.https.onCall(
             ? 2000
             : plan === "monthly"
             ? 5000
-            : plan === "2-month"
+            : plan === "3-month"
             ? 10000
             : 100000;
         };
@@ -108,7 +108,7 @@ exports.paymentWebhook = functions.https.onRequest(
               ? new Date(d.setDate(d.getDate() + 7))
               : plan === "monthly"
               ? new Date(d.setMonth(d.getMonth() + 1))
-              : plan === "2-month"
+              : plan === "3-month"
               ? new Date(d.setDate(d.getDate() + 60))
               : new Date();
           };

@@ -107,7 +107,12 @@ export default function Lesson() {
       )
         .then((e) => {
           setstarting(false);
-          router.push(router.asPath + "/learn");
+          router.push({
+            pathname: router.asPath + `/learn`,
+            query: {
+              fs: lesson.free ? "v" : "",
+            },
+          });
         })
         .catch((e) => {
           setstarting(false);

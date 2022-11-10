@@ -122,7 +122,7 @@ export default function Billing() {
                           ? "icyumweru"
                           : billing.plan === "monthly"
                           ? "ukwezi"
-                          : billing.plan === "2-month"
+                          : billing.plan === "-month"
                           ? "amezi 2"
                           : "",
                     },

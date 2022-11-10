@@ -54,10 +54,10 @@ export default function Plans() {
           },
           {
             price: 10000,
-            name: "amezi 2",
-            duration: "2-month",
+            name: "amezi 3",
+            duration: "3-month",
             features: [
-              "amezi abiri",
+              "amezi atatu",
               " Ubufasha kuri telefoni",
               "Amasomo n'amasuzumabumenyi yose",
             ],

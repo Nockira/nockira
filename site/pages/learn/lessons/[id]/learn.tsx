@@ -66,51 +66,50 @@ export default function Learn() {
     <Fragment>
       {" "}
       <div>
-        {user.subscription === "active" ||
-          (isFree === "v" && (
-            <Fragment>
-              {" "}
-              {status === "success" && data.length && (
-                <div className="flex items-center mt-2 justify-center">
-                  <a
-                    onClick={() => {
-                      if (data[activeSection - 1]) {
-                        handlePrev();
-                      }
-                    }}
-                    className="p-[7px] hover:bg-gray-100 cursor-pointer rounded-l-[4px] border-2 border-r-0 border-gray-500 "
-                  >
-                    <ArrowLeft
-                      strokeWidth={2}
-                      size={18}
-                      className="text-gray-500"
-                    />
-                  </a>
-                  <div
-                    onClick={() => {
-                      setshowCourseContentModal(true);
-                    }}
-                    className="flex px-3 hover:bg-gray-100 cursor-pointer py-[6px] items-center border-2 border-gray-500 "
-                  >
-                    <Menu size={18} className="text-gray-500 mr-3" />
-                    <span className="font-bold capitalize text-[13.5px] text-gray-600">
-                      Ibigize isomo
-                    </span>
-                  </div>
-                  <a
-                    onClick={() => {
-                      if (data[activeSection + 1]) {
-                        handleNext();
-                      }
-                    }}
-                    className=" border-2 cursor-pointer hover:bg-gray-100  rounded-r-[4px] p-[7px] border-l-0 h-full border-gray-500 "
-                  >
-                    <ArrowRight size={18} className="text-gray-500" />
-                  </a>
+        {(user.subscription === "active" || isFree === "v") && (
+          <Fragment>
+            {" "}
+            {status === "success" && data.length && (
+              <div className="flex items-center mt-2 justify-center">
+                <a
+                  onClick={() => {
+                    if (data[activeSection - 1]) {
+                      handlePrev();
+                    }
+                  }}
+                  className="p-[7px] hover:bg-gray-100 cursor-pointer rounded-l-[4px] border-2 border-r-0 border-gray-500 "
+                >
+                  <ArrowLeft
+                    strokeWidth={2}
+                    size={18}
+                    className="text-gray-500"
+                  />
+                </a>
+                <div
+                  onClick={() => {
+                    setshowCourseContentModal(true);
+                  }}
+                  className="flex px-3 hover:bg-gray-100 cursor-pointer py-[6px] items-center border-2 border-gray-500 "
+                >
+                  <Menu size={18} className="text-gray-500 mr-3" />
+                  <span className="font-bold capitalize text-[13.5px] text-gray-600">
+                    Ibigize isomo
+                  </span>
                 </div>
-              )}
-            </Fragment>
-          ))}
+                <a
+                  onClick={() => {
+                    if (data[activeSection + 1]) {
+                      handleNext();
+                    }
+                  }}
+                  className=" border-2 cursor-pointer hover:bg-gray-100  rounded-r-[4px] p-[7px] border-l-0 h-full border-gray-500 "
+                >
+                  <ArrowRight size={18} className="text-gray-500" />
+                </a>
+              </div>
+            )}
+          </Fragment>
+        )}
         {status === "loading" && (
           <div className="w-full h-[50vh] flex items-center justify-center">
             <Loader primary />
@@ -133,7 +132,7 @@ export default function Learn() {
           />
         )}
 
-        {(user.subscription === "active" && "active") || isFree === "v" ? (
+        {user.subscription === "active" || isFree === "v" ? (
           <Fragment>
             {sec && (
               <Fragment>
