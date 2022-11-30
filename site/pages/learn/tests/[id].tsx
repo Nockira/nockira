@@ -313,6 +313,7 @@ function TestModal({ onClose, id }: any) {
             return {
               id: e.id,
               ...e.data(),
+              position: Number(e.data().position),
             };
           })
       ),
@@ -553,7 +554,9 @@ function Quiz({
             <Fragment>
               <div className="overflow-y-auto  w-full relative bg-white sm:h[40vh]">
                 {activeQuestion && (
-                  <Question q={q} setanswers={setanswers} answers={answers} />
+                  <div>
+                    <Question q={q} setanswers={setanswers} answers={answers} />
+                  </div>
                 )}
               </div>
             </Fragment>
@@ -640,11 +643,10 @@ function Question({ q, setanswers, answers }) {
       <div className="max-w-4xl px-4 mx-auto">
         <div className={` sm:py-4 py-4 pb-10`}>
           <div className="py-2">
-            {q.photo && (
+            {q.photo && q.photo !== "" && (
               <img
                 src={q.photo}
                 className="max-w-xs mb-5 border border-gray-200 rounded-md h-52 bg-gray-100"
-                alt=""
               />
             )}
             <h3 className="text-[14.5px] leading-8 sm:text-[13.5px] font-bold capitalize text-gray-700">

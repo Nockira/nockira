@@ -43,6 +43,7 @@ export default function Questions() {
             return {
               id: e.id,
               ...e.data(),
+              postion: Number(e.data().position),
             };
           })
       ),
@@ -86,17 +87,19 @@ export default function Questions() {
       ) : null}
       {status === "success" && questions?.length ? (
         <div className="border border-l-0 border-gray-200">
-          {questions.map((e, index) => {
-            return (
-              <Question
-                handleUpdate={() => {
-                  setquestionToUpdate(e);
-                }}
-                key={index}
-                question={e}
-              />
-            );
-          })}
+          {questions
+            .sort((a, b) => a.position - b.position)
+            .map((e, index) => {
+              return (
+                <Question
+                  handleUpdate={() => {
+                    setquestionToUpdate(e);
+                  }}
+                  key={index}
+                  question={e}
+                />
+              );
+            })}
           <div className="p-3 border-l border-gray-200">
             <Button
               onClick={() => {
@@ -219,7 +222,7 @@ function QuestionModal({ onClose, question, questions }: any) {
       options: values.options,
       position: values.position,
       answer: values.answer,
-      photo: values.photo,
+      photo: values.photo || "",
       updatedAt: serverTimestamp(),
     };
     const q = question
