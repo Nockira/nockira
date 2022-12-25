@@ -10,6 +10,24 @@ Paypack.config({
     "87bd9f197ca70b23d30b6f58cf2fafa1da39a3ee5e6b4b0d3255bfef95601890afd80709",
 });
 
+exports.onUserCreated = functions.auth.user().onCreate((user) => {
+  return admin
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .set({
+      username: user?.displayName || "",
+      photo: user?.photoURL || "",
+      phone: user?.phoneNumber || "",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+});
+
+exports.onUserDeleted = functions.auth.user().onDelete((user) => {
+  return admin.firestore().collection("users").doc(user.uid).delete();
+});
+
 exports.makeSubscriptionPayment = functions.https.onCall(
   async (data, context) => {
     console.log(data);
@@ -47,7 +65,7 @@ exports.makeSubscriptionPayment = functions.https.onCall(
                 updatedAt: admin.firestore.FieldValue.serverTimestamp(),
                 user: {
                   id: user.uid,
-                  phone: user.token.phone_number,
+                  phone: user?.token?.phone_number || data.phone,
                   photo: user?.token.picture || "",
                 },
               })

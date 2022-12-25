@@ -28,11 +28,11 @@ export default function ForgotPassword() {
       .updateProfile({ displayName: names })
       .then(() => {
         reloadAuth();
-        return setDoc(doc(firestore, "users", user.id), {
+        return updateDoc(doc(firestore, "users", user.id), {
           username: names,
           photo: "",
           phone: user.phone,
-          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
         }).then((e) => {
           setSubmitting(false);
           if (

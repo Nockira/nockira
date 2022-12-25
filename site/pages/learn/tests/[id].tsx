@@ -343,6 +343,12 @@ function TestModal({ onClose, id }: any) {
       ? questions.find((e) => e.position === activeQuestion)
       : [];
 
+  const handleActiveQ = (p) => {
+    if (questions.find((e) => e.position === p)) {
+      setactiveQuestion(p);
+    }
+  };
+
   const handleNext = () => {
     setloadingNext(true);
     setTimeout(() => {
@@ -350,12 +356,12 @@ function TestModal({ onClose, id }: any) {
         setcompleted(true);
       } else {
         setloadingNext(false);
-        setactiveQuestion(activeQuestion + 1);
+        handleActiveQ(activeQuestion + 1);
       }
     }, 1000);
   };
   const handlePrev = () => {
-    setactiveQuestion(activeQuestion - 1);
+    handleActiveQ(activeQuestion - 1);
   };
 
   const [timer, setTimer] = React.useState(1200);
@@ -568,7 +574,6 @@ function Quiz({
 }
 
 function Answer({ question, answer }) {
-  console.log(answer);
   return (
     <div className="border-b border-l-2 text-sm leading-8 border-gray-200 last:border-b-0 p-4 first:pt-0">
       <div className="flex items-center my-1 justify-between">
