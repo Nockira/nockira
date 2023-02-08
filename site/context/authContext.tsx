@@ -54,6 +54,12 @@ export const handleCancelSubscription = ({ userId }: any) => {
   });
 };
 
+export const handleEnableSubscription = ({ userId }: any) => {
+  return updateDoc(doc(firestore, "subscriptions", userId), {
+    status: "active",
+  });
+};
+
 function useProvideAuth() {
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);

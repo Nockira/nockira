@@ -101,7 +101,12 @@ export default function DataTable({
 
     const moreQuery = getDocs(ordersQuery);
 
-    const newRecords = (await moreQuery).docs.map((doc) => doc.data());
+    const newRecords = (await moreQuery).docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
 
     setrecords(records.concat(newRecords));
     setloadingMore(false);

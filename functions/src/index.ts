@@ -127,7 +127,7 @@ exports.paymentWebhook = functions.https.onRequest(
               : plan === "monthly"
               ? new Date(d.setMonth(d.getMonth() + 1))
               : plan === "3-month"
-              ? new Date(d.setDate(d.getDate() + 60))
+              ? new Date(d.setDate(d.getDate() + 90))
               : new Date();
           };
 
