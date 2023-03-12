@@ -95,7 +95,7 @@ export default function DataTable({
     let ordersQuery = query(
       collection(firestore, name),
       orderBy("createdAt", "desc"),
-      limit(5),
+      limit(10),
       startAfter(cursor)
     );
 

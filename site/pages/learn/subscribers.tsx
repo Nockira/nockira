@@ -97,7 +97,7 @@ export default function Subscriptions() {
                 }) || "---",
               plan: e.plan || "---",
               status: e.status || "---",
-              phone: e.user?.phone || "---",
+              phone: e.user?.phone || e.user?.username || "---",
               all: e,
             };
           }}
@@ -149,6 +149,7 @@ export default function Subscriptions() {
 }
 
 function SubscriptionModal({ onClose, updateData, subscription }: any) {
+  console.log(subscription);
   const schema = Yup.object().shape({
     end: Yup.string().required(),
     status: Yup.string().required(),

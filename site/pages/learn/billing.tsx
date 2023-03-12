@@ -128,7 +128,7 @@ export default function Billing() {
                     },
                     {
                       title: "igiciro",
-                      subtitle: billing.payment.amount + " Frw",
+                      subtitle: billing?.payment?.amount + " Frw",
                     },
                     {
                       title: "itariki yogutangira",

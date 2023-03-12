@@ -33,11 +33,31 @@ export default function Plans() {
       <div className="grid grid-cols-3 sm:grid-cols-1 gap-3">
         {[
           {
+            price: 300,
+            name: "umunsi",
+            duration: "daily",
+            features: [
+              "umunsi",
+              " Ubufasha kuri telefoni",
+              "Amasomo n'amasuzumabumenyi yose",
+            ],
+          },
+          {
             price: 2000,
             name: "icyumweru",
             duration: "weekly",
             features: [
               "icyumweru",
+              " Ubufasha kuri telefoni",
+              "Amasomo n'amasuzumabumenyi yose",
+            ],
+          },
+          {
+            price: 3000,
+            name: "ibyumweru 2",
+            duration: "2-weeks",
+            features: [
+              "ibyumweru bibiri",
               " Ubufasha kuri telefoni",
               "Amasomo n'amasuzumabumenyi yose",
             ],

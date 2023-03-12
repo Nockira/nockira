@@ -40,6 +40,10 @@ exports.makeSubscriptionPayment = functions.https.onCall(
             ? 5000
             : plan === "3-month"
             ? 10000
+            : plan === "daily"
+            ? 300
+            : plan === "2-weeks"
+            ? 3000
             : 100000;
         };
         const user = context.auth;
@@ -128,6 +132,10 @@ exports.paymentWebhook = functions.https.onRequest(
               ? new Date(d.setMonth(d.getMonth() + 1))
               : plan === "3-month"
               ? new Date(d.setDate(d.getDate() + 90))
+              : plan === "2-weeks"
+              ? new Date(d.setDate(d.getDate() + 14))
+              : plan === "daily"
+              ? new Date(d.setDate(d.getDate() + 1))
               : new Date();
           };
 
