@@ -33,7 +33,7 @@ export default function Plans() {
       <div className="grid grid-cols-3 sm:grid-cols-1 gap-3">
         {[
           {
-            price: 300,
+            price: 1000,
             name: "umunsi",
             duration: "daily",
             features: [

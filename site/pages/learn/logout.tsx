@@ -27,7 +27,7 @@ export default function Logout() {
                 onClick={() => {
                   setloadingLogout(true);
                   setTimeout(() => {
-                    router.push("/auth/login");
+                    router.push("/");
                     logout();
                     setloadingLogout(false);
                   }, 1000);

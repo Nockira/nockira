@@ -1,4 +1,4 @@
-import { initializeApp, getApps } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { enableIndexedDbPersistence, getFirestore } from "firebase/firestore";
@@ -14,24 +14,13 @@ const config = {
   measurementId: "G-EVL87BVPES",
 };
 
-if (!getApps().length) {
-  enableIndexedDbPersistence(getFirestore(initializeApp(config))).catch(
-    (err) => {
-      if (err.code == "failed-precondition") {
-        console.log(err);
-      } else if (err.code == "unimplemented") {
-        console.log(err);
-      }
-    }
-  );
-}
+export const firebaseApp = !getApps().length ? initializeApp(config) : getApp();
 
-const auth = getAuth(initializeApp(config));
-const functions = getFunctions(initializeApp(config));
-const firestore = getFirestore(initializeApp(config));
-const storage = getStorage(initializeApp(config));
-
-// connectFunctionsEmulator(functions, "localhost", 5001);
+console.log(firebaseApp);
+const functions = getFunctions(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
+const auth = getAuth(firebaseApp);
 
 export function docToJSON(doc: any) {
   const data = doc.data();

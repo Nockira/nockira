@@ -41,7 +41,7 @@ exports.makeSubscriptionPayment = functions.https.onCall(
             : plan === "3-month"
             ? 10000
             : plan === "daily"
-            ? 300
+            ? 1000
             : plan === "2-weeks"
             ? 3000
             : 100000;

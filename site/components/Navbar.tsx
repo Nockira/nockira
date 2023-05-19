@@ -297,8 +297,8 @@ function Actions({
                 loading={loggingOut}
                 onClick={() => {
                   setloggingOut(true);
-                  router.push("/auth/login");
                   setTimeout(() => {
+                    router.push("/");
                     logout();
                     setcallapsed(false);
                     setloggingOut(false);
