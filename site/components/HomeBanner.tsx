@@ -131,7 +131,7 @@ export default function HomeBanner() {
             );
           }}
         >
-          Injira Na Google
+          Kanda hano Winjire Na Google
         </SocialIcon>
 
         {/* 

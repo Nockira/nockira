@@ -7,13 +7,11 @@ import {
   File,
   Globe,
   HelpCircle,
-  Mic,
   Smartphone,
   Trash,
   X,
 } from "react-feather";
 import Button from "../../../components/Button";
-import LearnLayout from "../../../components/LearnLayout";
 import Modal from "../../../components/Modal";
 import posed from "react-pose";
 import Radio from "../../../components/Radio";
@@ -66,7 +64,9 @@ export default function Test() {
 
   const toast: any = useToast();
   const [starting, setstarting] = useState(false);
-  const handleStart = async () => {
+
+  const [showPractiveModal, setshowPractiveModal] = useState(false);
+  const handleStart = async ({ mode }: { mode?: string }) => {
     if (user.subscription !== "active" && test.free !== true) {
       router.push(`/learn/plans?redirect_url=${router.asPath}`);
     } else {
@@ -90,8 +90,13 @@ export default function Test() {
         { merge: true }
       )
         .then((e) => {
+          if (mode === "practice") {
+            setshowPractiveModal(true);
+          } else {
+            setshowTestModal(true);
+          }
+
           setstarting(false);
-          setshowTestModal(true);
         })
         .catch((e) => {
           setstarting(false);
@@ -224,14 +229,25 @@ export default function Test() {
                         );
                       })}
                     </div>
-                    <div className="text-center mb-4 flex-col items-center">
+                    <div className="text-center flex mb-4 flex-row gap-3 items-center">
                       <Button
+                        className="w-full"
                         loading={starting}
                         onClick={() => {
-                          handleStart();
+                          handleStart({ mode: "test" });
                         }}
                       >
                         Tangira isuzuma
+                      </Button>
+                      <Button
+                        className="!w-full"
+                        loading={starting}
+                        outlined
+                        onClick={() => {
+                          handleStart({ mode: "practice" });
+                        }}
+                      >
+                        Itoze isuzuma
                       </Button>
                     </div>
                   </div>
@@ -295,11 +311,21 @@ export default function Test() {
           }}
         />
       )}
+
+      {showPractiveModal && data && (
+        <TestModal
+          id={data.id}
+          isPractice={true}
+          onClose={() => {
+            setshowPractiveModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-function TestModal({ onClose, id }: any) {
+function TestModal({ onClose, id, isPractice }: any) {
   const [activeQuestion, setactiveQuestion] = useState(1);
   const [loadingNext, setloadingNext] = useState(false);
 
@@ -365,6 +391,9 @@ function TestModal({ onClose, id }: any) {
   };
 
   const [timer, setTimer] = React.useState(1200);
+
+  const [guesses, setGuesses] = useState(3);
+
   return (
     <Modal
       hAuto
@@ -423,6 +452,9 @@ function TestModal({ onClose, id }: any) {
               </div>
             ) : questions.length && answers.length ? (
               <Quiz
+                setGuesses={setGuesses}
+                guesses={guesses}
+                isPractice={isPractice}
                 setactiveQuestion={setactiveQuestion}
                 activeQuestion={activeQuestion}
                 quiz={{ questions: questions }}
@@ -451,6 +483,7 @@ function TestModal({ onClose, id }: any) {
 
 function Quiz({
   quiz,
+  isPractice,
   setactiveQuestion,
   activeQuestion,
   answers,
@@ -461,6 +494,8 @@ function Quiz({
   timer,
   setTimer,
   q,
+  guesses,
+  setGuesses,
 }) {
   const loadMarks = () => {
     const total = quiz.questions.length;
@@ -561,7 +596,14 @@ function Quiz({
               <div className="overflow-y-auto  w-full relative bg-white sm:h[40vh]">
                 {activeQuestion && (
                   <div>
-                    <Question q={q} setanswers={setanswers} answers={answers} />
+                    <Question
+                      guesses={guesses}
+                      setGuesses={setGuesses}
+                      isPractice={isPractice}
+                      q={q}
+                      setanswers={setanswers}
+                      answers={answers}
+                    />
                   </div>
                 )}
               </div>
@@ -619,12 +661,18 @@ function Answer({ question, answer }) {
   );
 }
 
-function Question({ q, setanswers, answers }) {
+function Question({ q, setanswers, answers, isPractice, guesses, setGuesses }) {
   const handleAnswer = (e) => {
-    // const status = q.answer === e ? "correct" : "incorrect";
-    // if (status === "incorrect") {
-    //   setGuesses(guesses + 1);
-    // }
+    const status = isPractice
+      ? q.answer === e
+        ? "correct"
+        : "incorrect"
+      : undefined;
+    if (isPractice) {
+      if (status === "incorrect") {
+        setGuesses((prev) => prev - 1);
+      }
+    }
     setanswers(
       answers.map((i) =>
         i.id === q.id
@@ -632,7 +680,7 @@ function Question({ q, setanswers, answers }) {
               ...i,
               answer: e,
               correct: q.answer === e,
-              // status: status,
+              status: status,
             }
           : i
       )
@@ -640,8 +688,6 @@ function Question({ q, setanswers, answers }) {
   };
 
   const status = answers.find((e) => e?.id === q?.id)?.status;
-
-  const [guesses, setGuesses] = useState(3);
 
   return q ? (
     <div>
@@ -658,6 +704,7 @@ function Question({ q, setanswers, answers }) {
               <span>{q.position}.</span> {q.question}
             </h3>
           </div>
+
           <ShakePose pose={["shake"]} poseKey={guesses}>
             <div
               className={`${
