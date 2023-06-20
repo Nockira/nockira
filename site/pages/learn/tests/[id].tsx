@@ -239,7 +239,7 @@ export default function Test() {
                       >
                         Tangira isuzuma
                       </Button>
-                      <Button
+                      {/* <Button
                         className="!w-full"
                         loading={starting}
                         outlined
@@ -248,7 +248,7 @@ export default function Test() {
                         }}
                       >
                         Itoze isuzuma
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </div>

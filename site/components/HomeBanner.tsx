@@ -70,7 +70,7 @@ export default function HomeBanner() {
         <h4 className="text-3xl max-w-3xl sm:text-xl leading-[50px] text-gray-100 mx-auto font-bold capitalize">
           Urubuga rwambere mu rwanda rufasha abantu bose kubona Provisoire
         </h4>
-        <p className="max-w-2xl sm:line-clamp-2 mx-auto my-5 leading-7 text-[15px] font-semibold text-gray-200">
+        <p className="max-w-2xl sm:line-clamp-2 mx-auto my-5 leading-7 text-[15px] font-semibold text-gray-100">
           Nockira ni urubuga rwashyiriweho gufasha abanyarwanda Bose kumenya
           amategeko y&apos;umuhanda mu rwego rwo kwirinda impanuka.
         </p>
@@ -134,13 +134,20 @@ export default function HomeBanner() {
           Kanda hano Winjire Na Google
         </SocialIcon>
 
-        {/* 
+        <div className="relative z-20 w-full max-w-sm flex mt-5 py-5 items-center">
+          <div className="flex-grow border-t border-gray-50/60"></div>
+          <span className="flex-shrink text-sm font-semibold mx-4 text-gray-50">
+            Cyangwa
+          </span>
+          <div className="flex-grow border-t border-gray-50/60"></div>
+        </div>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
           }}
-          className="bg-white px-1 py-1 mt-5 justify-between w-full max-w-md rounded-[4px] flex items-center"
+          className="bg-white px-1 py-1 mt-0 justify-between w-full max-w-md rounded-[4px] flex items-center"
         >
           <PhoneInput
             placeholder="Nimero ya telephone"
@@ -152,7 +159,7 @@ export default function HomeBanner() {
           />
           <div className="flex">
             <Button loading={loading} noRightIcon onClick={handleSubmit}>
-              <span className="sm:hidden">Iyandikishe</span>
+              <span className="sm:hidden">Injira</span>
               <ChevronRight
                 className="ml-3 sm:ml-0 sm:m-1"
                 strokeWidth={3}
@@ -160,7 +167,7 @@ export default function HomeBanner() {
               />
             </Button>
           </div>
-        </form> */}
+        </form>
       </div>
       <div id="recaptcha-container"></div>
     </div>
