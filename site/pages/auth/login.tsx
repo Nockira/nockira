@@ -31,29 +31,29 @@ export default function Login() {
     { phone }: any,
     { resetForm, setSubmitting, setErrors, setStatus }: any
   ) => {
-    new AuthServices()
-      .signInWithPhone({ phone })
-      .then((e) => {
-        setSubmitting(false);
-        if (
-          router.query.redirect_url &&
-          router.query.redirect_url !== "undefined"
-        ) {
-          router.push(
-            `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}&phone=${phone}`
-          );
-        } else {
-          router.push(
-            `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
-          );
-        }
-        resetForm();
-      })
-      .catch((error) => {
-        setSubmitting(false);
-        console.log(error);
-        toast.show({ title: error.message, danger: true });
-      });
+    // new AuthServices()
+    //   .signInWithPhone({ phone })
+    //   .then((e) => {
+    //     setSubmitting(false);
+    //     if (
+    //       router.query.redirect_url &&
+    //       router.query.redirect_url !== "undefined"
+    //     ) {
+    //       router.push(
+    //         `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}&phone=${phone}`
+    //       );
+    //     } else {
+    //       router.push(
+    //         `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
+    //       );
+    //     }
+    //     resetForm();
+    //   })
+    //   .catch((error) => {
+    //     setSubmitting(false);
+    //     console.log(error);
+    //     toast.show({ title: error.message, danger: true });
+    //   });
   };
 
   const [googleLoading, setgoogleLoading] = useState(false);
@@ -103,7 +103,7 @@ export default function Login() {
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <div className="mb-3">
                 <div className="mb-3">
                   <AppFormPhoneNumber
@@ -113,7 +113,7 @@ export default function Login() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex justify-between my-4">
               <Checkbox id="login" label="Munyibuke" />
               <Link href="/terms">

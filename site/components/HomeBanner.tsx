@@ -23,19 +23,19 @@ export default function HomeBanner() {
     ) {
       setloading(true);
       new AuthServices()
-        .signInWithPhone({ phone })
-        .then((e) => {
-          setloading(false);
-          router.push(
-            `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-          setloading(false);
-          toast.show({ title: error.message, danger: true });
-        });
-    } else {
+        // .signInWithPhone({ phone })
+        // .then((e) => {
+        //   setloading(false);
+        //   // router.push(
+        //   //   `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
+        //   // );
+        // })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       setloading(false);
+    //       toast.show({ title: error.message, danger: true });
+    //     });
+    // } else {
       toast.show({ title: "nimero yawe nago yanditse neza", danger: true });
     }
   };
@@ -149,15 +149,15 @@ export default function HomeBanner() {
           }}
           className="bg-white px-1 py-1 mt-0 justify-between w-full max-w-md rounded-[4px] flex items-center"
         >
-          <PhoneInput
+          {/* <PhoneInput
             placeholder="Nimero ya telephone"
             value={phone}
             defaultCountry="RW"
             autoComplete="tel"
             className={`  text-base placeholder:text-gray-400 sm:w-auto font-semibold sm:flex-none flex-1 transition-all text-gray-600 bg-transparent rounded px-4 outline-none py-[10px] letter w-full`}
             onChange={(e: any) => setphone(e)}
-          />
-          <div className="flex">
+          /> */}
+          {/* <div className="flex">
             <Button loading={loading} noRightIcon onClick={handleSubmit}>
               <span className="sm:hidden">Injira</span>
               <ChevronRight
@@ -166,7 +166,7 @@ export default function HomeBanner() {
                 size={15}
               />
             </Button>
-          </div>
+          </div> */}
         </form>
       </div>
       <div id="recaptcha-container"></div>

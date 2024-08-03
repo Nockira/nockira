@@ -30,28 +30,28 @@ export default function SignUp() {
     { resetForm, setSubmitting, setErrors, setStatus }: any
   ) => {
     new AuthServices()
-      .signInWithPhone({ phone })
-      .then((e) => {
-        setSubmitting(false);
-        if (
-          router.query.redirect_url &&
-          router.query.redirect_url !== "undefined"
-        ) {
-          router.push(
-            `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}&phone=${phone}`
-          );
-        } else {
-          router.push(
-            `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
-          );
-        }
-        resetForm();
-      })
-      .catch((error) => {
-        setSubmitting(false);
-        console.log(error);
-        toast.show({ title: error.message, danger: true });
-      });
+      // .signInWithPhone({ phone })
+      // .then((e) => {
+      //   setSubmitting(false);
+      //   if (
+      //     router.query.redirect_url &&
+      //     router.query.redirect_url !== "undefined"
+      //   ) {
+      //     router.push(
+      //       `/auth/verify-phone?redirect_url=${redirect_url}&verificationId=${e.verificationId}&phone=${phone}`
+      //     );
+      //   } else {
+      //     router.push(
+      //       `/auth/verify-phone?verificationId=${e.verificationId}&phone=${phone}`
+      //     );
+      //   }
+      //   resetForm();
+      // })
+      // .catch((error) => {
+      //   setSubmitting(false);
+      //   console.log(error);
+      //   toast.show({ title: error.message, danger: true });
+      // });
   };
 
   const [googleLoading, setgoogleLoading] = useState(false);
@@ -86,15 +86,15 @@ export default function SignUp() {
         initialValues={{ phone: "" }}
       >
         <div>
-          <div className="text-center mb-5">
+          {/* <div className="text-center mb-5">
             <h4 className="font-bold mb-2 text-gray-800 text-[16px]">
               Ushaka Gufunguza Konti?
             </h4>
             <p className="font-semibold text-gray-400 text-[13px]">
               Shyiramo nimero ya telephone yawe?
             </p>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <div className="mb-3">
               <div className="mb-3">
                 <AppFormPhoneNumber
@@ -104,7 +104,7 @@ export default function SignUp() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex justify-between my-4">
             <Checkbox id="register" label="Kwemera amategeko namabwiriza" />
             <div />

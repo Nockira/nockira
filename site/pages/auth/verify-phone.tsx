@@ -16,84 +16,84 @@ export default function VerifyPhone() {
   });
   const router = useRouter();
   const toast: any = useToast();
-  const handleSubmit = ({ code }: any, { resetForm, setSubmitting }: any) => {
-    const verificationId = router.query.verificationId;
-    if (verificationId) {
-      new AuthServices()
-        .confirmPhone({ code, verificationId })
-        .then((e) => {
-          console.log(e);
-          setSubmitting(false);
-          if (!e.displayName) {
-            if (
-              router.query.redirect_url &&
-              router.query.redirect_url !== "undefined"
-            ) {
-              router.push(
-                `/auth/complete?redirect_url=${router.query.redirect_url}`
-              );
-            } else {
-              router.push(`/auth/complete`);
-            }
-          } else if (
-            router.query.redirect_url &&
-            router.query.redirect_url !== "undefined"
-          ) {
-            router.push(router.query.redirect_url.toString());
-          } else {
-            router.push(`/learn`);
-          }
-          resetForm();
-        })
-        .catch((error) => {
-          setSubmitting(false);
-          toast.show({ title: "Gusuzuma code byanze", danger: true });
-        });
-    } else {
-      setSubmitting(false);
+  // const handleSubmit = ({ code }: any, { resetForm, setSubmitting }: any) => {
+  //   const verificationId = router.query.verificationId;
+  //   if (verificationId) {
+  //     new AuthServices()
+  //       .confirmPhone({ code, verificationId })
+  //       .then((e) => {
+  //         console.log(e);
+  //         setSubmitting(false);
+  //         if (!e.displayName) {
+  //           if (
+  //             router.query.redirect_url &&
+  //             router.query.redirect_url !== "undefined"
+  //           ) {
+  //             router.push(
+  //               `/auth/complete?redirect_url=${router.query.redirect_url}`
+  //             );
+  //           } else {
+  //             router.push(`/auth/complete`);
+  //           }
+  //         } else if (
+  //           router.query.redirect_url &&
+  //           router.query.redirect_url !== "undefined"
+  //         ) {
+  //           router.push(router.query.redirect_url.toString());
+  //         } else {
+  //           router.push(`/learn`);
+  //         }
+  //         resetForm();
+  //       })
+  //       .catch((error) => {
+  //         setSubmitting(false);
+  //         toast.show({ title: "Gusuzuma code byanze", danger: true });
+  //       });
+  //   } else {
+  //     setSubmitting(false);
 
-      toast.show({ title: "verfication id is missing", danger: true });
-    }
-  };
-  return (
-    <div className={` max-w-[430px] px-3 mt-20  sm:pt-2 bg-white mx-auto`}>
-      <AppForm
-        validationSchema={registerSchema}
-        onSubmit={handleSubmit}
-        initialValues={{ code: "" }}
-      >
-        <div>
-          <div className="text-center mb-5">
-            <h4 className="font-bold mb-2 text-gray-800 text-[16px]">
-              Gusuzuma nimero ya telephone.
-            </h4>
-            <p className="font-semibold text-gray-400 text-[13px]">
-              Shyiramo kode yoherjwe kuri telephone ya{" "}
-              <span className="font-bold text-primary">
-                +{router?.query?.phone}
-              </span>
-              .
-            </p>
-          </div>
+  //     toast.show({ title: "verfication id is missing", danger: true });
+  //   }
+  // };
+  // return (
+  //   <div className={` max-w-[430px] px-3 mt-20  sm:pt-2 bg-white mx-auto`}>
+  //     <AppForm
+  //       validationSchema={registerSchema}
+  //       onSubmit={handleSubmit}
+  //       initialValues={{ code: "" }}
+  //     >
+  //       <div>
+  //         <div className="text-center mb-5">
+  //           <h4 className="font-bold mb-2 text-gray-800 text-[16px]">
+  //             Gusuzuma nimero ya telephone.
+  //           </h4>
+  //           <p className="font-semibold text-gray-400 text-[13px]">
+  //             Shyiramo kode yoherjwe kuri telephone ya{" "}
+  //             <span className="font-bold text-primary">
+  //               +{router?.query?.phone}
+  //             </span>
+  //             .
+  //           </p>
+  //         </div>
 
-          <div>
-            <div className="mb-3">
-              <CodeInput />
-            </div>
-          </div>
-          <div className="flex justify-between my-4">
-            <Checkbox id="register" label="Kwemera amategeko namabwiriza" />
-            <Link href="/auth/login">
-              <a className="text-sm text-primary  font-semibold">
-                Hindura nimero
-              </a>
-            </Link>
-          </div>
-          <SubmitButton>Gusuzuma kode.</SubmitButton>
-        </div>
-      </AppForm>
-    </div>
-  );
+  //         <div>
+  //           <div className="mb-3">
+  //             <CodeInput />
+  //           </div>
+  //         </div>
+  //         <div className="flex justify-between my-4">
+  //           <Checkbox id="register" label="Kwemera amategeko namabwiriza" />
+  //           <Link href="/auth/login">
+  //             <a className="text-sm text-primary  font-semibold">
+  //               Hindura nimero
+  //             </a>
+  //           </Link>
+  //         </div>
+  //         <SubmitButton>Gusuzuma kode.</SubmitButton>
+  //       </div>
+  //     </AppForm>
+  //   </div>
+  // );
 }
 
 function CodeInput() {
