@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "site/out",
+    "source": "site",
+    "public": "out",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
     "rewrites": [
@@ -32,7 +33,7 @@
         "firebase-debug.log",
         "firebase-debug.*.log"
       ],
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
+      "predeploy": ["yarn --cwd \"$RESOURCE_DIR\" build"]
     }
   ]
 }
