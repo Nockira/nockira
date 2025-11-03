@@ -1,18 +1,19 @@
 {
-  "hosting": [
-    {
-      "target": "site",
-      "public": "site/.next/static",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "cleanUrls": true,
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
-  ],
+    "hosting": {
+    "target": "site",
+    "public": "site/out",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "predeploy": [
+      "cd site && yarn run build"
+    ]
+  },
   "functions": [
     {
       "source": "functions",
