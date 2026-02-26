@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+.env
+
+# Firebase
+firebase-debug.log
+.firebaserc
+
+# TypeScript
+*.tsbuildinfo
+*.ts
+*.tsx
