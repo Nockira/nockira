@@ -1,18 +1,9 @@
 {
-    "hosting": {
-    "target": "site",
-    "public": "site/out",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "cleanUrls": true,
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
-    "predeploy": [
-      "cd site && yarn run build"
-    ]
+  "hosting": {
+    "source": "site",
+    "frameworksBackend": {
+      "region": "us-east4"
+    }
   },
   "functions": [
     {
