@@ -1,15 +1,1 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017"
-  },
-  "compileOnSave": true,
-  "include": [
-    "src"
-  ]
-}
+{\n  "compilerOptions": {\n    "target": "es6",\n    "module": "commonjs",\n    "lib": [\n      "es2017",\n      "dom"\n    ],\n    "outDir": "lib",\n    "rootDir": "src",\n    "strict": true,\n    "esModuleInterop": true,\n    "skipLibCheck": true,\n    "forceConsistentCasingInFileNames": true\n  }\n}
