@@ -14,23 +14,22 @@ export default function Footer() {
   const router = useRouter();
   return (
     <footer
-      className={`${
-        router.asPath.split("/").includes("learn") && "hidden"
-      } border-t mt-0 bg-gray-100 border-gray-200`}
+      className={`${router.asPath.split("/").includes("learn") && "hidden"
+        } border-t mt-0 bg-gray-100 border-gray-200`}
     >
       <div className={` border-gray-300  border-opacity-60`}>
         <div className="py-4 sm:flex-col mx-auto px-3  max-w-5xl  flex justify-between items-center">
           <p className="text-sm text-gray-700 leading-7 font-semibold sm:text-center">
-            Copyright © 2022 Nockira. All Rights Reserved.
+            Copyright © {new Date().getFullYear()} Nockira. All Rights Reserved.
             <strong className="ml-2">
               Developed by
               <a
-                href="https://github.com/edson-pro"
+                href="https://www.tangahubservice.com/"
                 rel="noreferrer"
                 target="_blank"
               >
                 {" "}
-                Edson
+                tangahubservice
               </a>
             </strong>
           </p>
