@@ -1,21 +1,58 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow the user to read/write their own user document
+    
+    // Helper function to check if the user is an admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.role == 'admin';
+    }
+
+    // Allow user to read/write their own user document
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+      
+      // Subcollections of users (e.g., lessons, tests progress)
+      match /{allSubcollections=**} {
+        allow read, write: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+      }
     }
     
     // Allow users to read their own subscription status
     match /subscriptions/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      // Usually only an admin or system should write these, so write is restricted
-      allow write: if false; 
+      allow read: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+      allow write: if isAdmin(); // Only admins can manually update subscriptions
+      
+      // Subcollections of subscriptions (e.g., payments)
+      match /{allSubcollections=**} {
+        allow read: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+        allow write: if isAdmin();
+      }
+    }
+
+    // Public/Shared content (Lessons and Tests)
+    match /lessons/{lessonId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+      
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if isAdmin();
+      }
+    }
+
+    match /tests/{testId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+      
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if isAdmin();
+      }
     }
 
     // Default: deny everything else
     match /{document=**} {
-      allow read, write: if false;
+      allow read, write: if isAdmin();
     }
   }
 }
