@@ -71,39 +71,54 @@ function useProvideAuth() {
         ? await getIdTokenResult(currentUser).then((res) => res.claims)
         : null;
 
-      await getDoc(doc(firestore, "subscriptions", currentUser.uid)).then(
-        (e) => {
-          const subscription: any = {
-            id: e.exists() ? e.id : undefined,
-            ...e.data(),
-          };
-          if (subscription.id && subscription.status === "active") {
-            const expire = new Date(subscription?.end?.toDate());
-            const now = new Date();
+      try {
+        await getDoc(doc(firestore, "subscriptions", currentUser.uid)).then(
+          (e) => {
+            const subscription: any = {
+              id: e.exists() ? e.id : undefined,
+              ...e.data(),
+            };
+            if (subscription.id && subscription.status === "active") {
+              const expire = new Date(subscription?.end?.toDate());
+              const now = new Date();
 
-            if (expire < now) {
-              handleCancelSubscription({ userId: auth.currentUser.uid }).then(
-                (e) => {
-                  reloadAuth();
-                }
-              );
+              if (expire < now) {
+                handleCancelSubscription({ userId: auth.currentUser.uid }).then(
+                  (e) => {
+                    reloadAuth();
+                  }
+                );
+              }
             }
-          }
 
-          const user = {
-            username: currentUser.displayName,
-            phone: currentUser.phoneNumber,
-            photo: currentUser.photoURL,
-            id: currentUser.uid,
-            subscription: subscription?.status,
-            role: claims.role,
-          };
-          setUser(user);
-          setTimeout(() => {
-            setLoading(false);
-          }, 500);
-        }
-      );
+            const user = {
+              username: currentUser.displayName,
+              phone: currentUser.phoneNumber,
+              photo: currentUser.photoURL,
+              id: currentUser.uid,
+              subscription: subscription?.status,
+              role: claims.role,
+            };
+            setUser(user);
+          }
+        );
+      } catch (error) {
+        console.error("Firestore subscription fetch failed:", error);
+        // Fallback user object if firestore fails
+        const user = {
+          username: currentUser.displayName,
+          phone: currentUser.phoneNumber,
+          photo: currentUser.photoURL,
+          id: currentUser.uid,
+          subscription: undefined,
+          role: claims?.role,
+        };
+        setUser(user);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      }
     } else {
       setLoading(false);
     }

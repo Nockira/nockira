@@ -19,7 +19,7 @@ export default function Footer() {
     >
       <div className={` border-gray-300  border-opacity-60`}>
         <div className="py-4 sm:flex-col mx-auto px-3  max-w-5xl  flex justify-between items-center">
-          <p className="text-sm text-gray-700 leading-7 font-semibold sm:text-center">
+          <p suppressHydrationWarning className="text-sm text-gray-700 leading-7 font-semibold sm:text-center">
             Copyright © {new Date().getFullYear()} Nockira. All Rights Reserved.
             <strong className="ml-2">
               Developed by
