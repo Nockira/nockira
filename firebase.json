@@ -1,14 +1,17 @@
 {
   "hosting": {
-    "source": "site",
-    "frameworksBackend": {
-      "region": "us-east4"
-    }
+    "public": "site/out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   },
   "functions": [
     {
       "source": "functions",
       "codebase": "default",
+      "runtime": "nodejs18",
       "ignore": [
         "node_modules",
         ".git",
@@ -17,5 +20,20 @@
       ],
       "predeploy": ["yarn --cwd \"$RESOURCE_DIR\" build"]
     }
-  ]
+  ],
+  "emulators": {
+    "hub": {
+      "port": 4400
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    },
+    "functions": {
+      "port": 5001
+    },
+    "logging": {
+      "port": 4500
+    }
+  }
 }

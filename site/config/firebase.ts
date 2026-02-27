@@ -5,13 +5,13 @@ import { enableIndexedDbPersistence, getFirestore } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 const config = {
-  apiKey: "AIzaSyCE1RPJyvOxlK9oRxm8Tke1j2_KByGokh8",
-  authDomain: "my-pro-363712.firebaseapp.com",
-  projectId: "my-pro-363712",
-  storageBucket: "my-pro-363712.appspot.com",
-  messagingSenderId: "473885907050",
-  appId: "1:473885907050:web:804223cb7157b50bca1213",
-  measurementId: "G-EVL87BVPES",
+  apiKey: "AIzaSyBi4Rc4qCoP-vlf-H5Ouv_-m3XQOotBO80",
+  authDomain: "nockira-a2f9f.firebaseapp.com",
+  projectId: "nockira-a2f9f",
+  storageBucket: "nockira-a2f9f.firebasestorage.app",
+  messagingSenderId: "898938226142",
+  appId: "1:898938226142:web:0bab1297ecd5ce8920094f",
+  measurementId: "G-963MM5N968",
 };
 
 export const firebaseApp = !getApps().length ? initializeApp(config) : getApp();
