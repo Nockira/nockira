@@ -1,6 +1,13 @@
 {
   "hosting": {
     "public": "site/out",
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -18,7 +25,9 @@
         "firebase-debug.log",
         "firebase-debug.*.log"
       ],
-      "predeploy": ["yarn --cwd \"$RESOURCE_DIR\" build"]
+      "predeploy": [
+        "yarn --cwd \"$RESOURCE_DIR\" build"
+      ]
     }
   ],
   "emulators": {
