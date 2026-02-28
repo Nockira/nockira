@@ -57,12 +57,15 @@ export default function Navbar() {
             </a>
             <div className="flex items-center">
               <Link href={user ? `/learn` : `/`}>
-                <a className="mr-3 sm:mr-0">
+                <a className="mr-3 sm:mr-0 flex items-center">
                   <img
-                    className="h-[23px] w-[90px]"
-                    src="/images/logo.png"
-                    alt=""
+                    className="h-[34px] w-[34px]"
+                    src="/images/nockira-badge.png"
+                    alt="Nockira"
                   />
+                  <span className="ml-2 font-bold text-[17px] text-primary sm:hidden">
+                    Nockira
+                  </span>
                 </a>
               </Link>
             </div>
