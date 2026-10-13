@@ -22,7 +22,6 @@ Strategy · Project Delivery · Process Design · Cloud · DevOps · Financial M
 
 ## Contact
 - GitHub: @Nockira
-- Email: your.email@example.com
-- LinkedIn: linkedin.com/in/your-profile
+- Email: enockiradukunda4@gmail.com
 
 If you’d like, I can expand the Smart School and Excelegde entries into full case studies with problem statements, deliverables, technologies, outcomes, and metrics.
